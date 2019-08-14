@@ -329,7 +329,7 @@ Canary
 
 不能直接使用栈溢出
 
-NXNX即No-eXecute（不可执行）的意思，NX（DEP）
+NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -455,7 +455,8 @@ NXNX即No-eXecute（不可执行）的意思，NX（DEP）
       
         
           
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -593,7 +594,8 @@ NXNX即No-eXecute（不可执行）的意思，NX（DEP）
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -602,6 +604,12 @@ NXNX即No-eXecute（不可执行）的意思，NX（DEP）
   
 </div>
 
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  traveller:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
 
   <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
