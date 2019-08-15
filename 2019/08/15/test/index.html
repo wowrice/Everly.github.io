@@ -88,7 +88,7 @@
 <meta property="og:description" content="基础知识checksec  RELRO设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。说明我们对GOT表具有写权限. Canary 不能直接使用栈溢出 NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/08/14/BIDV8X76iuTlbGe.png">
-<meta property="og:updated_time" content="2019-08-15T04:38:54.876Z">
+<meta property="og:updated_time" content="2019-08-15T16:42:38.626Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pwn笔记">
 <meta name="twitter:description" content="基础知识checksec  RELRO设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。说明我们对GOT表具有写权限. Canary 不能直接使用栈溢出 NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面">
@@ -382,7 +382,21 @@
 
 <hr>
 <center> ~~未完待续~~ </center>
-
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: '<%= page.date %>', // 可选。默认为 location.href
+  owner: 'wowrice',
+  repo: 'wowrice.github.io',
+  oauth: {
+    client_id: 'd9aeefd8d643c03ea22d',
+    client_secret: '970a5694f96a0fefd9f32eacfc0794f6c907bfc5',
+  },
+})
+gitment.render('container')
+</script>
       
     </div>
     
