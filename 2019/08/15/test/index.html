@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="基础知识checksec  RELRO设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。说明我们对GOT表具有写权限. Canary 不能直接使用栈溢出 NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面">
+<meta name="description" content="零零散散总结了比较基础的pwn题知识点会持续更新є(･◇･｡)э 基础知识checksec  RELRO设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。说明我们对GOT表具有写权限. Canary 不能直接使用栈溢出 NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可">
 <meta name="keywords" content="pwn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pwn笔记">
 <meta property="og:url" content="http://yoursite.com/2019/08/15/test/index.html">
 <meta property="og:site_name" content="WOWrice">
-<meta property="og:description" content="基础知识checksec  RELRO设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。说明我们对GOT表具有写权限. Canary 不能直接使用栈溢出 NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面">
+<meta property="og:description" content="零零散散总结了比较基础的pwn题知识点会持续更新є(･◇･｡)э 基础知识checksec  RELRO设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。说明我们对GOT表具有写权限. Canary 不能直接使用栈溢出 NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/08/14/BIDV8X76iuTlbGe.png">
-<meta property="og:updated_time" content="2019-08-15T16:46:33.782Z">
+<meta property="og:updated_time" content="2019-08-16T11:52:40.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pwn笔记">
-<meta name="twitter:description" content="基础知识checksec  RELRO设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。说明我们对GOT表具有写权限. Canary 不能直接使用栈溢出 NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面">
+<meta name="twitter:description" content="零零散散总结了比较基础的pwn题知识点会持续更新є(･◇･｡)э 基础知识checksec  RELRO设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。说明我们对GOT表具有写权限. Canary 不能直接使用栈溢出 NXNX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可">
 <meta name="twitter:image" content="https://i.loli.net/2019/08/14/BIDV8X76iuTlbGe.png">
 
 
@@ -324,7 +324,8 @@
       
 
       
-        <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h2><p><img src="https://i.loli.net/2019/08/14/BIDV8X76iuTlbGe.png" alt="checksec.png"></p>
+        <p>零零散散总结了比较基础的pwn题知识点<br>会持续更新є(･◇･｡)э</p>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h2><p><img src="https://i.loli.net/2019/08/14/BIDV8X76iuTlbGe.png" alt="checksec.png"></p>
 <ul>
 <li>RELRO<br>设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。<strong>说明我们对GOT表具有写权限.</strong></li>
 <li>Canary<br> <strong>不能直接使用栈溢出</strong></li>
