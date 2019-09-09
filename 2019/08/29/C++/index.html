@@ -88,7 +88,8 @@
 <meta property="og:description" content="对遇到的题分了些类，以便下次遇到及时查询。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/08/29/uK1dzX5iUf4DQhB.png">
-<meta property="og:updated_time" content="2019-08-29T05:38:08.649Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/W6ktSZ3TnjiIGlw.png">
+<meta property="og:updated_time" content="2019-09-08T15:40:57.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++">
 <meta name="twitter:description" content="对遇到的题分了些类，以便下次遇到及时查询。">
@@ -360,9 +361,24 @@
       
 
       
-        <h1 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h1><h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p> <a href="https://ac.nowcoder.com/acm/contest/903/B" target="_blank" rel="noopener">详情</a> </p>
-<p><img src="https://i.loli.net/2019/08/29/uK1dzX5iUf4DQhB.png" alt="AE7KU4J06E_43I_XJGEBU8T.png"><br>由公式可知</p>
+        <h1 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h1><h2 id="例题1"><a href="#例题1" class="headerlink" title="例题1"></a>例题1</h2><p> <a href="https://ac.nowcoder.com/acm/contest/903/B" target="_blank" rel="noopener">详情请戳戳我</a> </p>
+<p><img src="https://i.loli.net/2019/08/29/uK1dzX5iUf4DQhB.png" alt="AE7KU4J06E_43I_XJGEBU8T.png"></p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p><img src="https://i.loli.net/2019/09/08/W6ktSZ3TnjiIGlw.png" alt="B__AM8_59KCVEFFH7`Z_ZAU.png"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> mod; <span class="comment">//全局余数</span></span><br><span class="line">ll tmp[N][N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">multi</span><span class="params">(ll a[][N],ll b[][N],<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(tmp,<span class="number">0</span>,<span class="keyword">sizeof</span> tmp);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;n;k++)</span><br><span class="line">                tmp[i][j]+=a[i][k]*b[k][j]%mod;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            a[i][j]=tmp[i][j]%mod;</span><br><span class="line">&#125;</span><br><span class="line">ll res[N][N]</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pow</span><span class="params">(ll a[][N],<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(res,<span class="number">0</span>,<span class="keyword">sizeof</span> res);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++) res[i][i]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(n&amp;<span class="number">1</span>)</span><br><span class="line">            multi(res,a,N);</span><br><span class="line">        multi(a,a,N);</span><br><span class="line">        n&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span>(T--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> n,q;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;q&gt;&gt;n&gt;&gt;mod;</span><br><span class="line">        ll a[<span class="number">2</span>][<span class="number">2</span>]=&#123;<span class="number">1</span>,<span class="number">0</span>,q,q&#125;;</span><br><span class="line">        <span class="built_in">pow</span>(a,n<span class="number">-1</span>);</span><br><span class="line">        ll ans=q*res[<span class="number">0</span>][<span class="number">0</span>]%mod+q*res[<span class="number">1</span>][<span class="number">0</span>]%mod;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;ans%mod&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="例题2-模板题"><a href="#例题2-模板题" class="headerlink" title="例题2(模板题)"></a>例题2(模板题)</h2><p><a href="https://www.luogu.org/problem/P3390" target="_blank" rel="noopener">详情戳戳我</a><br>给定n*n的矩阵A，求A^k</p>
+<blockquote>
+<p>输入格式<br>第一行，n,k<br>第2至n+1行，每行n个数，第i+1行第j个数表示矩阵第i行第j列的元素</p>
+</blockquote>
+<blockquote>
+<p>输出格式<br>输出A^k<br>共n行，每行n个数，第i行第j个数表示矩阵第i行第j列的元素，每个元素模10^9+7</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>例输入                                例输出<br>2 1                                     1 1<br>1 1                                     1 1<br>1 1</p>
+</blockquote>
+</blockquote>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3>
       
     </div>
     
@@ -490,7 +506,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -545,7 +561,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵快速幂"><span class="nav-number">1.</span> <span class="nav-text">矩阵快速幂</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例题"><span class="nav-number">1.1.</span> <span class="nav-text">例题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵快速幂"><span class="nav-number">1.</span> <span class="nav-text">矩阵快速幂</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例题1"><span class="nav-number">1.1.</span> <span class="nav-text">例题1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">1.1.1.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题2-模板题"><span class="nav-number">1.2.</span> <span class="nav-text">例题2(模板题)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">分析</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
