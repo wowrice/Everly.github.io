@@ -90,7 +90,21 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/09/nL34eDdkJRvl5t7.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/09/PoxVHjhiX3aCqWz.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/09/oG8td6k4sWzXlrb.png">
-<meta property="og:updated_time" content="2019-09-09T03:07:21.333Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/JvMbBeuz1X4jcmA.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/ZMregCatRVDbw3h.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/eRmsX3S8UTlkjLo.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/16/NqxQv4UyBT1OEtk.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/16/HmKxBol3ACPgzSp.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/16/d8gtEsvKbF7Jkzw.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/16/XN2Hjd4gxKThEG7.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/16/WOzCmj97KE2rIwP.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/16/jqaOIdWMF4Y7ic1.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/16/A6JxEGzeKwsnfZH.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/16/mfv5rXKBoz97Uiq.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/16/nIxNWjvBCtMo9mc.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/16/dUsfpSLHqZB9yCT.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/16/yH6otFmaAXZKbsr.png">
+<meta property="og:updated_time" content="2019-09-16T13:59:58.056Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xctf-re题">
 <meta name="twitter:description" content="Stay hungry，stay foolish。">
@@ -304,8 +318,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-09-09T11:07:21+08:00">
-                2019-09-09
+              <time title="Post modified" itemprop="dateModified" datetime="2019-09-16T21:59:58+08:00">
+                2019-09-16
               </time>
             
           </span>
@@ -378,6 +392,16 @@
 <h2 id="只看while算法"><a href="#只看while算法" class="headerlink" title="只看while算法"></a>只看while算法</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">'c61b68366edeb7bdce3c6820314b7498'</span></span><br><span class="line">t1=<span class="string">'SharifCTF&#123;????????????????????????????????&#125;'</span></span><br><span class="line"></span><br><span class="line">t=[]</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> t1:</span><br><span class="line">    t.append(x)</span><br><span class="line"></span><br><span class="line">v5=<span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> v5&lt;len(s):</span><br><span class="line">    <span class="keyword">if</span> v5&amp;<span class="number">1</span>:</span><br><span class="line">        v3=<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        v3=<span class="number">-1</span></span><br><span class="line">    t[v5+<span class="number">10</span>]=str(chr(ord(s[v5])+v3))</span><br><span class="line">	v5=v5+<span class="number">1</span></span><br><span class="line">flag=<span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> t:</span><br><span class="line">	flag+=x</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
 
 <h2 id="内存中寻找"><a href="#内存中寻找" class="headerlink" title="内存中寻找"></a>内存中寻找</h2><p>:( 看了wp才知道，涨知识<br>/tmp/flag为linux下一个临时文件夹<br>在写入时进行一步fseek函数，根据汇编，可以确定jnb loc_4008B5就是fseek()函数，那么，mov eax,[rbp+var_3C]肯定就是最后要得到的flag了<br><img src="https://i.loli.net/2019/09/09/PoxVHjhiX3aCqWz.png" alt="BT___U9B2O_7P0M97_4Q2DO.png"><br><img src="https://i.loli.net/2019/09/09/oG8td6k4sWzXlrb.png" alt="M5R1U3NIRR7JS``_NCYJS3O.png"></p>
+<h1 id="python-trade"><a href="#python-trade" class="headerlink" title="python-trade"></a>python-trade</h1><blockquote>
+<p>.pyc &gt; .py<br><img src="https://i.loli.net/2019/09/11/JvMbBeuz1X4jcmA.png" alt="H64B~YU`K2M~941A37_77B9.png"><br><img src="https://i.loli.net/2019/09/11/ZMregCatRVDbw3h.png" alt="@LEC6Q_~_MZYE_N7PUCHYSE.png"></p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/09/11/eRmsX3S8UTlkjLo.png" alt="3___3Q_G`H_SU4JJ0S@KK3E.png"></p>
+<h1 id="csaw2013reversing2"><a href="#csaw2013reversing2" class="headerlink" title="csaw2013reversing2"></a>csaw2013reversing2</h1><p>运行如下图<br><img src="https://i.loli.net/2019/09/16/NqxQv4UyBT1OEtk.png" alt="7__ZTLOK18YT_T_26UREZ_U.png"><br>拉入od中，寻找ascii码或者unicode，查找关键字符</p>
+<p><img src="https://i.loli.net/2019/09/16/HmKxBol3ACPgzSp.png" alt="`__LRQ_~_O_FR0_____J_3L.png"><br>如上图可见出现了两个flag,随便点进一个</p>
+<p><img src="https://i.loli.net/2019/09/16/d8gtEsvKbF7Jkzw.png" alt="_DIQZWLJT~___EV__938HC5.png"><br>如图所示，简单观察这两个flag附近的跳转函数<br><img src="https://i.loli.net/2019/09/16/XN2Hjd4gxKThEG7.png" alt="MSCB4Y_B__TFB11N_00EFGF.png"><br>上图值得注意的是je跳转下的int3暂停<br><img src="https://i.loli.net/2019/09/16/WOzCmj97KE2rIwP.png" alt="_EYF__7ZKM~58`8_0_6__6L.png](https://i.loli.net/2019/09/16/YeQtNWJ3R5Xhvjp.png)
+下断点，f8
+![HQG_WV7_V@_`B_J_88_DTG3.png"><br><img src="https://i.loli.net/2019/09/16/jqaOIdWMF4Y7ic1.png" alt="JH_@FWV__EAG@2_H_E2G~V4.png"><br><img src="https://i.loli.net/2019/09/16/A6JxEGzeKwsnfZH.png" alt="L7IA6_HL2@6_QQW5_7BQU_W.png"><br>发现第一个flag的位置并未执行，第二个flag的位置出现了第一个flag的字符，并出现弹框，说明字符串形成还需往上寻找，即jnz，试着修改并执行第一个flag位置<br><img src="https://i.loli.net/2019/09/16/mfv5rXKBoz97Uiq.png" alt="CE_H5RWV2DD~@AGS`_S_84A.png"><br><img src="https://i.loli.net/2019/09/16/nIxNWjvBCtMo9mc.png" alt="HO__28X612_I@_E64_W_KWN.png"><br>修改jnz跳过int3后发现第一个flag位置执行到call 0x00f1000不再出现乱码</p>
+<p>继续执行，发现跳过了第二个flag位置，如下图<br><img src="https://i.loli.net/2019/09/16/dUsfpSLHqZB9yCT.png" alt="NY~_07___W0JEAQHC_BQ9_C.png"><br>故现在应该修改0x00f010a3的jmp指令，跳转到第二个flag位置，执行成功出现正确flag<br><img src="https://i.loli.net/2019/09/16/yH6otFmaAXZKbsr.png" alt="M__AO_VM5FR1DGX_6CL2V_1.png"></p>
 
       
     </div>
@@ -553,7 +577,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#getit"><span class="nav-number">1.</span> <span class="nav-text">getit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#只看while算法"><span class="nav-number">1.1.</span> <span class="nav-text">只看while算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存中寻找"><span class="nav-number">1.2.</span> <span class="nav-text">内存中寻找</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#getit"><span class="nav-number">1.</span> <span class="nav-text">getit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#只看while算法"><span class="nav-number">1.1.</span> <span class="nav-text">只看while算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存中寻找"><span class="nav-number">1.2.</span> <span class="nav-text">内存中寻找</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python-trade"><span class="nav-number">2.</span> <span class="nav-text">python-trade</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#csaw2013reversing2"><span class="nav-number">3.</span> <span class="nav-text">csaw2013reversing2</span></a></li></ol></div>
             
 
           </div>
