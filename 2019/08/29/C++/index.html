@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/08/29/uK1dzX5iUf4DQhB.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/08/W6ktSZ3TnjiIGlw.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/16/8k63nSICd9QlDWw.png">
-<meta property="og:updated_time" content="2019-09-08T16:00:00.000Z">
+<meta property="og:updated_time" content="2019-09-17T12:11:39.820Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++">
 <meta name="twitter:description" content="对遇到的题分了些类，以便下次遇到及时查询。">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-09-09T00:00:00+08:00">
-                2019-09-09
+              <time title="Post modified" itemprop="dateModified" datetime="2019-09-17T20:11:39+08:00">
+                2019-09-17
               </time>
             
           </span>
@@ -374,7 +374,7 @@
       
 
       
-        <h1 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h1><h2 id="对于快速幂的理解"><a href="#对于快速幂的理解" class="headerlink" title="对于快速幂的理解"></a>对于快速幂的理解</h2><p>对于数据的次方运算所利用的时间复杂度通常为O(N)，当数据过大的时候时间往往会超时，利用快速幂算法可将时间复杂度降至O(log2N)。如ab mod p应该先判断次方b为奇数或者为偶数，可以利用位运算实现，即b&amp;1，偶数时b&amp;1=0，奇数时b&amp;1=1。当b偶数时将b&gt;&gt;1（b/=2）,a<em>=a，例如2<sup>8</sup>=(2<sup>2</sup>)<sup>4</sup>=((2<sup>2</sup>)<sup>2</sup>)<sup>2</sup>；b为奇数时先将结果ans*a，从而继续进行 b &gt;&gt;1,a</em>=a，例如2<sup>9</sup>=2* 2<sup>8</sup>=2<em>((2<sup>2</sup>)<sup>2</sup>)<sup>2</sup>。若需要实现取余，应在(a</em>=a)%=p和(ans*=a)%=p时进行取余操作。</p>
+        <h1 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h1><h2 id="对于快速幂的理解"><a href="#对于快速幂的理解" class="headerlink" title="对于快速幂的理解"></a>对于快速幂的理解</h2><p>对于数据的次方运算所利用的时间复杂度通常为O(N)，当数据过大的时候时间往往会超时，利用快速幂算法可将时间复杂度降至O(log2N)。如ab mod p应该先判断次方b为奇数或者为偶数，可以利用位运算实现，即b&amp;1，偶数时b&amp;1=0，奇数时b&amp;1=1。当b偶数时将b&gt;&gt;1（b/=2）,a<em>=a，例如2<sup>8</sup>=(2<sup>2</sup>)<sup>4</sup>=((2<sup>2</sup>)<sup>2</sup>)<sup>2</sup>；b为奇数时先将结果ans</em> a，从而继续进行 b &gt;&gt;1,a<em>=a，例如2<sup>9</sup>=2</em> 2<sup>8</sup>=2<em>((2<sup>2</sup>)<sup>2</sup>)<sup>2</sup>。若需要实现取余，应在(a</em>=a)%=p和(ans*=a)%=p时进行取余操作。</p>
 <h3 id="简单快速幂模板"><a href="#简单快速幂模板" class="headerlink" title="简单快速幂模板"></a>简单快速幂模板</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function">ll  <span class="title">fun</span><span class="params">(ll a,ll b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll sum=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>)   <span class="comment">//b&amp;1==0则b为偶数</span></span><br><span class="line">            sum=(sum*a)%<span class="number">1000</span>; <span class="comment">//取余操作</span></span><br><span class="line">        b/=<span class="number">2</span>;</span><br><span class="line">        a=a*a%<span class="number">1000</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll t,a;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    a = fun(<span class="number">2</span>,t); <span class="comment">//求2^n</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;a;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="二进制的符号操作"><a href="#二进制的符号操作" class="headerlink" title="二进制的符号操作"></a>二进制的符号操作</h4><p>“&lt;&lt;” 向左移n位：相当于原数乘以2的n次方。</p>
