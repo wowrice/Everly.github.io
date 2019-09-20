@@ -104,7 +104,8 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/16/nIxNWjvBCtMo9mc.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/16/dUsfpSLHqZB9yCT.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/16/yH6otFmaAXZKbsr.png">
-<meta property="og:updated_time" content="2019-09-16T13:59:58.056Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/17/pqWhPCUAugJver5.png">
+<meta property="og:updated_time" content="2019-09-17T15:34:47.215Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xctf-re题">
 <meta name="twitter:description" content="Stay hungry，stay foolish。">
@@ -318,8 +319,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-09-16T21:59:58+08:00">
-                2019-09-16
+              <time title="Post modified" itemprop="dateModified" datetime="2019-09-17T23:34:47+08:00">
+                2019-09-17
               </time>
             
           </span>
@@ -402,6 +403,10 @@
 下断点，f8
 ![HQG_WV7_V@_`B_J_88_DTG3.png"><br><img src="https://i.loli.net/2019/09/16/jqaOIdWMF4Y7ic1.png" alt="JH_@FWV__EAG@2_H_E2G~V4.png"><br><img src="https://i.loli.net/2019/09/16/A6JxEGzeKwsnfZH.png" alt="L7IA6_HL2@6_QQW5_7BQU_W.png"><br>发现第一个flag的位置并未执行，第二个flag的位置出现了第一个flag的字符，并出现弹框，说明字符串形成还需往上寻找，即jnz，试着修改并执行第一个flag位置<br><img src="https://i.loli.net/2019/09/16/mfv5rXKBoz97Uiq.png" alt="CE_H5RWV2DD~@AGS`_S_84A.png"><br><img src="https://i.loli.net/2019/09/16/nIxNWjvBCtMo9mc.png" alt="HO__28X612_I@_E64_W_KWN.png"><br>修改jnz跳过int3后发现第一个flag位置执行到call 0x00f1000不再出现乱码</p>
 <p>继续执行，发现跳过了第二个flag位置，如下图<br><img src="https://i.loli.net/2019/09/16/dUsfpSLHqZB9yCT.png" alt="NY~_07___W0JEAQHC_BQ9_C.png"><br>故现在应该修改0x00f010a3的jmp指令，跳转到第二个flag位置，执行成功出现正确flag<br><img src="https://i.loli.net/2019/09/16/yH6otFmaAXZKbsr.png" alt="M__AO_VM5FR1DGX_6CL2V_1.png"></p>
+<h1 id="crackme"><a href="#crackme" class="headerlink" title="crackme"></a>crackme</h1><p>改日再说</p>
+<h1 id="re-for-50-plz-50"><a href="#re-for-50-plz-50" class="headerlink" title="re-for-50-plz-50"></a>re-for-50-plz-50</h1><p><img src="https://i.loli.net/2019/09/17/pqWhPCUAugJver5.png" alt="K__V1XN73N1_F8_R_1_OK2D.png"><br>简单看汇编 大概懂 字符串加异或</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">a=<span class="string">""</span></span><br><span class="line">b=<span class="string">"cbtcqLUBChERV[[Nh@_X^D]X_YPV[CJ"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">31</span>):</span><br><span class="line">	a += chr(ord(b[i])^<span class="number">0x37</span>)</span><br><span class="line"></span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -577,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#getit"><span class="nav-number">1.</span> <span class="nav-text">getit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#只看while算法"><span class="nav-number">1.1.</span> <span class="nav-text">只看while算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存中寻找"><span class="nav-number">1.2.</span> <span class="nav-text">内存中寻找</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python-trade"><span class="nav-number">2.</span> <span class="nav-text">python-trade</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#csaw2013reversing2"><span class="nav-number">3.</span> <span class="nav-text">csaw2013reversing2</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#getit"><span class="nav-number">1.</span> <span class="nav-text">getit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#只看while算法"><span class="nav-number">1.1.</span> <span class="nav-text">只看while算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存中寻找"><span class="nav-number">1.2.</span> <span class="nav-text">内存中寻找</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python-trade"><span class="nav-number">2.</span> <span class="nav-text">python-trade</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#csaw2013reversing2"><span class="nav-number">3.</span> <span class="nav-text">csaw2013reversing2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#crackme"><span class="nav-number">4.</span> <span class="nav-text">crackme</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#re-for-50-plz-50"><span class="nav-number">5.</span> <span class="nav-text">re-for-50-plz-50</span></a></li></ol></div>
             
 
           </div>
