@@ -114,7 +114,12 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/22/xrIqX3oDEdzZCAf.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/22/voD9h2ENbktQYUG.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/22/GqK3wpVHEauh548.png">
-<meta property="og:updated_time" content="2019-09-22T02:35:53.197Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/b5IAvlm4rLDk9z6.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/XSnfpVrQJEdu5c9.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/v6AJRH3VWdcszxq.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/bJSRQ6WOvPFiUsk.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/3owit4bPT2G6XMl.png">
+<meta property="og:updated_time" content="2019-09-23T01:33:06.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HBNIS2019">
 <meta name="twitter:description" content="线上刚完，赶紧总结一波波~~(˶˚  ᗨ ˚˶)">
@@ -328,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-09-22T10:35:53+08:00">
-                2019-09-22
+              <time title="Post modified" itemprop="dateModified" datetime="2019-09-23T09:33:06+08:00">
+                2019-09-23
               </time>
             
           </span>
@@ -418,7 +423,7 @@
 </li>
 <li><p>2.cd到此目录<br><img src="https://i.loli.net/2019/09/22/wYHljgxNsJ9ZaqQ.png" alt="_JHSN_65``RA_H_ADYYB0@H.png"></p>
 </li>
-<li><p>3.使用如下命令<br><img src="https://i.loli.net/2019/09/22/d9zMuHRSkFIBqYG.png" alt="QN0C_S868G7DJELX~__LQ0F.png"><br>即可发现目录下多了一个txt文件，这就是压缩包的密码<br><img src="https://i.loli.net/2019/09/22/afzm5V8kto73Pxq.png" alt="YPN_`BSIXXG_J3B3CA23_H9.png"><br>打开压缩包有一个pic_png.txt文件，猜测是png文件，在最后看到=，猜测是base64加密<br><img src="https://i.loli.net/2019/09/22/7K18vpuVqWH6yNc.png" alt="7L__VUBBP_~I_R5UXPLQ4N8.png"><br><img src="https://i.loli.net/2019/09/22/xrIqX3oDEdzZCAf.png" alt="__4BW6_XQ3CIL7HIJ_K_B_Y.png"></p>
+<li><p>3.使用如下命令：Decode.exe -X -P 密码 文件<br><img src="https://i.loli.net/2019/09/22/d9zMuHRSkFIBqYG.png" alt="QN0C_S868G7DJELX~__LQ0F.png"><br>即可发现目录下多了一个txt文件，这就是压缩包的密码<br><img src="https://i.loli.net/2019/09/22/afzm5V8kto73Pxq.png" alt="YPN_`BSIXXG_J3B3CA23_H9.png"><br>打开压缩包有一个pic_png.txt文件，猜测是png文件，在最后看到=，猜测是base64加密<br><img src="https://i.loli.net/2019/09/22/7K18vpuVqWH6yNc.png" alt="7L__VUBBP_~I_R5UXPLQ4N8.png"><br><img src="https://i.loli.net/2019/09/22/xrIqX3oDEdzZCAf.png" alt="__4BW6_XQ3CIL7HIJ_K_B_Y.png"></p>
 </li>
 </ul>
 <p>手动或者脚本加上89 50 4E 47 0D 0A 1A 0A，png文件头<br>将base64解密后的数据补充在后就能得到png文件</p>
@@ -427,7 +432,18 @@
 <p>附上大佬的代码</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fo</span><span class="params">()</span>:</span> </span><br><span class="line">    f=open(<span class="string">'C:/Users/lenovo/Desktop/zip/pic_png.txt'</span>).read() </span><br><span class="line">    fsave=open(<span class="string">'C:/Users/lenovo/Desktop/zip/pic.png'</span>,<span class="string">'wb'</span>) </span><br><span class="line">    addHeader=<span class="string">"89 50 4E 47 0D 0A 1A 0A"</span>.replace(<span class="string">' '</span>,<span class="string">""</span>).decode(<span class="string">'hex'</span>)</span><br><span class="line">    fsave.write(addHeader) </span><br><span class="line">    fsave.write(base64.b64decode(f))</span><br><span class="line">    fsave.close() </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">	fo()</span><br><span class="line">	<span class="keyword">print</span> <span class="string">'okk'</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="暂时写到这。我也不知为啥我全程在写杂项"><a href="#暂时写到这。我也不知为啥我全程在写杂项" class="headerlink" title="暂时写到这。我也不知为啥我全程在写杂项"></a>暂时写到这。我也不知为啥我全程在写杂项</h1>
+<h1 id="楼梯"><a href="#楼梯" class="headerlink" title="楼梯"></a>楼梯</h1><h2 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h2><p>受大佬指点，学习大佬思想<br>打开图片<br><img src="https://i.loli.net/2019/09/23/b5IAvlm4rLDk9z6.png" alt="A_QT_TRU_IO3E_Z9YSF50GR.png"><br>按照惯例检查属性</p>
+<p><img src="https://i.loli.net/2019/09/23/XSnfpVrQJEdu5c9.png" alt="W_IE_Z7ZD3KP_8__Q7_0N@K.png"><br>没有任何有价值的东西，binwalk检查也只是单纯的一张png文件<br>放入notepad++<br><img src="https://i.loli.net/2019/09/23/v6AJRH3VWdcszxq.png" alt="P5QM89MRN`Z`L52_NF__DAV.png"></p>
+<p>最后这里为base64加密串<br>顺便提一下base64编码特征</p>
+<ul>
+<li>字符串只可能包含A-Z，a-z，0-9，+，/，=</li>
+<li>字符串长度是4的倍数</li>
+<li>=只会出现在字符串最后，可能没有或者一个等号或者两个等号</li>
+</ul>
+<p>将这串字符使用在线工具解密得如下<br><img src="https://i.loli.net/2019/09/23/bJSRQ6WOvPFiUsk.png" alt="_OIT3HHS`@7_OWDE_GQ1@ZW.png"><br>使用异或爆破（0~255）<br><img src="https://i.loli.net/2019/09/23/3owit4bPT2G6XMl.png" alt="ZH@_GQM_U_KMWK4CDPUKBX0.png"></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">'gm`fz Y2^B3^w0^c1|'</span></span><br><span class="line">flag=<span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">256</span>):</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> range(len(a)):</span><br><span class="line">		flag+=chr(ord(a[j])^i)</span><br><span class="line">	<span class="keyword">print</span> (flag)</span><br><span class="line">	flag=<span class="string">''</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="下次继续更新"><a href="#下次继续更新" class="headerlink" title="下次继续更新"></a>下次继续更新</h1>
       
     </div>
     
@@ -604,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-Doc是什么鬼"><span class="nav-number">1.</span> <span class="nav-text">0x01 Doc是什么鬼</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">1.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flag"><span class="nav-number">1.2.</span> <span class="nav-text">flag</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-爱因斯坦"><span class="nav-number">2.</span> <span class="nav-text">0x02 爱因斯坦</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-1"><span class="nav-number">2.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flag-1"><span class="nav-number">2.2.</span> <span class="nav-text">flag</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-奇怪的数字"><span class="nav-number">3.</span> <span class="nav-text">0x03 奇怪的数字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-2"><span class="nav-number">3.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flag-2"><span class="nav-number">3.2.</span> <span class="nav-text">flag</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-aduio-amp-mimi（misc之音频）"><span class="nav-number">4.</span> <span class="nav-text">0x04 aduio &amp; mimi（misc之音频）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#aduio"><span class="nav-number">4.1.</span> <span class="nav-text">aduio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mimi"><span class="nav-number">4.2.</span> <span class="nav-text">mimi</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#暂时写到这。我也不知为啥我全程在写杂项"><span class="nav-number">5.</span> <span class="nav-text">暂时写到这。我也不知为啥我全程在写杂项</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-Doc是什么鬼"><span class="nav-number">1.</span> <span class="nav-text">0x01 Doc是什么鬼</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">1.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flag"><span class="nav-number">1.2.</span> <span class="nav-text">flag</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-爱因斯坦"><span class="nav-number">2.</span> <span class="nav-text">0x02 爱因斯坦</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-1"><span class="nav-number">2.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flag-1"><span class="nav-number">2.2.</span> <span class="nav-text">flag</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-奇怪的数字"><span class="nav-number">3.</span> <span class="nav-text">0x03 奇怪的数字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-2"><span class="nav-number">3.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flag-2"><span class="nav-number">3.2.</span> <span class="nav-text">flag</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-aduio-amp-mimi（misc之音频）"><span class="nav-number">4.</span> <span class="nav-text">0x04 aduio &amp; mimi（misc之音频）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#aduio"><span class="nav-number">4.1.</span> <span class="nav-text">aduio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mimi"><span class="nav-number">4.2.</span> <span class="nav-text">mimi</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#楼梯"><span class="nav-number">5.</span> <span class="nav-text">楼梯</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-3"><span class="nav-number">5.1.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下次继续更新"><span class="nav-number">6.</span> <span class="nav-text">下次继续更新</span></a></li></ol></div>
             
 
           </div>
