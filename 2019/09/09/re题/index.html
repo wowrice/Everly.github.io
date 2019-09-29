@@ -105,7 +105,20 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/16/dUsfpSLHqZB9yCT.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/16/yH6otFmaAXZKbsr.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/17/pqWhPCUAugJver5.png">
-<meta property="og:updated_time" content="2019-09-17T15:34:47.215Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/YS9qxiIAMCfzpnr.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/Mi9GVmJ8yB1vwS3.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/xuoLKqQNrP2XI4S.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/adzvtb9WLcpBXk5.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/A8JC5zlniLMIVRj.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/S8wg6YAmzLqkrUK.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/3BLn27cWCyFUHz8.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/dLjk3QKYgZulTXH.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/DF3raZOnbGfcW1l.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/XoJ6FWdeOyDVn1u.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/lNLXfEov7Jj1ZTh.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/NUhtEdpRQsDyCkS.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/29/4nZucoqRsIdj23N.png">
+<meta property="og:updated_time" content="2019-09-29T15:56:09.670Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xctf-re题">
 <meta name="twitter:description" content="Stay hungry，stay foolish。">
@@ -319,8 +332,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-09-17T23:34:47+08:00">
-                2019-09-17
+              <time title="Post modified" itemprop="dateModified" datetime="2019-09-29T23:56:09+08:00">
+                2019-09-29
               </time>
             
           </span>
@@ -407,6 +420,10 @@
 <h1 id="re-for-50-plz-50"><a href="#re-for-50-plz-50" class="headerlink" title="re-for-50-plz-50"></a>re-for-50-plz-50</h1><p><img src="https://i.loli.net/2019/09/17/pqWhPCUAugJver5.png" alt="K__V1XN73N1_F8_R_1_OK2D.png"><br>简单看汇编 大概懂 字符串加异或</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">a=<span class="string">""</span></span><br><span class="line">b=<span class="string">"cbtcqLUBChERV[[Nh@_X^D]X_YPV[CJ"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">31</span>):</span><br><span class="line">	a += chr(ord(b[i])^<span class="number">0x37</span>)</span><br><span class="line"></span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
 
+<h1 id="simple-check-100"><a href="#simple-check-100" class="headerlink" title="simple-check-100"></a>simple-check-100</h1><p>下载的附件中有三个文件，首先打开exe文件<br><img src="https://i.loli.net/2019/09/29/YS9qxiIAMCfzpnr.png" alt="G`DX__VGJHA4_F9U_2`L4HM.png"><br>执行后弹出，放入od<br><img src="https://i.loli.net/2019/09/29/Mi9GVmJ8yB1vwS3.png" alt="1XWS0U8TJUSI_L0EE2LD43Q.png"><br>搜索ascii码，如图，选择wrong<br><img src="https://i.loli.net/2019/09/29/xuoLKqQNrP2XI4S.png" alt="2N26_TY~5K3483F_DQ6GEY6.png"><br>在key：处下断点，逐步跟过<br><img src="https://i.loli.net/2019/09/29/adzvtb9WLcpBXk5.png" alt="GTSL_L1_C_D2HNMKN~_@@80.png"><br>je指令ZF=1说明相等则跳转<br><img src="https://i.loli.net/2019/09/29/A8JC5zlniLMIVRj.png" alt="VLUNCAQE3_4_HD6V7R9G496.png"><br>可以直接nop掉<br><img src="https://i.loli.net/2019/09/29/S8wg6YAmzLqkrUK.png" alt="DTFX97V__@I__5XT__5COQJ.png"><br>可看到<br><img src="https://i.loli.net/2019/09/29/3BLn27cWCyFUHz8.png" alt="6I_3N618K~1IHX08TI68BUG.png"><br>感觉这就是flag了，但是跟进去找到了循环函数也无果。。。一直都是乱码<br>于是用elf文件去gdb中，顺便也放到ida中可以看关键汇编语句在哪。。<br><img src="https://i.loli.net/2019/09/29/dLjk3QKYgZulTXH.png" alt="VG_CH_Q_5L_CB0ZOTHK5JMY.png"><br><img src="https://i.loli.net/2019/09/29/DF3raZOnbGfcW1l.png" alt="T__SL___ATZ0@DJ7_85E9MP.png"><br>查看eax的值，设置eax=1，c继续执行<br><img src="https://i.loli.net/2019/09/29/XoJ6FWdeOyDVn1u.png" alt="~NS_KZRNUO_3U84AT8M_8A5.png"></p>
+<h1 id="re1-100"><a href="#re1-100" class="headerlink" title="re1-100"></a>re1-100</h1><p>嗯，放入ida中，查看主函数关键部分</p>
+<p><img src="https://i.loli.net/2019/09/29/lNLXfEov7Jj1ZTh.png" alt="_1LU8_VGNI7_VTUI15GINAR.png"><br>大概看一下 { 开头 然后53… 最后以 } 结尾 最后一部分49…<br>查看confuseKey函数的伪代码可知，修改顺序即可。<br><img src="https://i.loli.net/2019/09/29/NUhtEdpRQsDyCkS.png" alt="_XIWDF7_ZL_V8YSX__2BVFW.png"></p>
+<p><img src="https://i.loli.net/2019/09/29/4nZucoqRsIdj23N.png" alt="1V__@_AI@22S_KA__NRC_@B.png"></p>
 
       
     </div>
@@ -586,7 +603,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#getit"><span class="nav-number">1.</span> <span class="nav-text">getit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#只看while算法"><span class="nav-number">1.1.</span> <span class="nav-text">只看while算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存中寻找"><span class="nav-number">1.2.</span> <span class="nav-text">内存中寻找</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python-trade"><span class="nav-number">2.</span> <span class="nav-text">python-trade</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#csaw2013reversing2"><span class="nav-number">3.</span> <span class="nav-text">csaw2013reversing2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#crackme"><span class="nav-number">4.</span> <span class="nav-text">crackme</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#re-for-50-plz-50"><span class="nav-number">5.</span> <span class="nav-text">re-for-50-plz-50</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#getit"><span class="nav-number">1.</span> <span class="nav-text">getit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#只看while算法"><span class="nav-number">1.1.</span> <span class="nav-text">只看while算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存中寻找"><span class="nav-number">1.2.</span> <span class="nav-text">内存中寻找</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python-trade"><span class="nav-number">2.</span> <span class="nav-text">python-trade</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#csaw2013reversing2"><span class="nav-number">3.</span> <span class="nav-text">csaw2013reversing2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#crackme"><span class="nav-number">4.</span> <span class="nav-text">crackme</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#re-for-50-plz-50"><span class="nav-number">5.</span> <span class="nav-text">re-for-50-plz-50</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#simple-check-100"><span class="nav-number">6.</span> <span class="nav-text">simple-check-100</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#re1-100"><span class="nav-number">7.</span> <span class="nav-text">re1-100</span></a></li></ol></div>
             
 
           </div>
