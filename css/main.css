@@ -1822,7 +1822,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #b3ffff;
+  background: #e5d405;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2674,6 +2674,9 @@ body {
   background: url("/images/background.jpg");
   background-attachment: fixed;
 }
+body span {
+  color: #606060;
+}
 .main-inner {
   background-color: transparent;
 }
@@ -2692,7 +2695,7 @@ body {
 }
 .post {
   background: #fff;
-  opacity: 0.8;
+  opacity: 0.9;
   margin-top: 60px;
   margin-bottom: 60px;
   padding: 25px;
