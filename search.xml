@@ -3,7 +3,7 @@
   <entry>
     <title>UNCTF2019-re</title>
     <url>/2019/11/02/UNCTF%20%E7%AB%9E%E6%8A%80%E8%B5%9B/</url>
-    <content><![CDATA[<h1 id="babyXor"><a href="#babyXor" class="headerlink" title="babyXor"></a>babyXor</h1><p>题目下载地址：<a href="https://github.com/wowrice/REVERSE/blob/master/babyXor.exe" target="_blank" rel="noopener">https://github.com/wowrice/REVERSE/blob/master/babyXor.exe</a></p>
+    <content><![CDATA[<h1 id="0x01-babyXor"><a href="#0x01-babyXor" class="headerlink" title="0x01  babyXor"></a>0x01  babyXor</h1><p>题目下载地址：<a href="https://github.com/wowrice/REVERSE/blob/master/babyXor.exe" target="_blank" rel="noopener">https://github.com/wowrice/REVERSE/blob/master/babyXor.exe</a></p>
 <p>简单的看一下题目：<img src="https://i.loli.net/2019/11/03/gTKXCt8VL5UzJRQ.png" alt="BC54@__VUH8E~HJ__BUP25P.png"></p>
 <p>查壳：<img src="https://i.loli.net/2019/11/03/AzTdrgUb6escI8W.png" alt="___~F__O_RCG6PWKWR~__ZK.png"></p>
 <p>od打开：<img src="https://i.loli.net/2019/11/03/ivbeGzoKFpElYat.png" alt="H_Z0T7_9W4DON2Z3KQP66EP.png"><br>虽然查壳工具没有查到壳，从od可以看出有壳（pushad加壳的关键句），继续手动脱壳<br><strong>F8</strong>运行pushad</p>
@@ -13,8 +13,20 @@
 此处应该是程序的OEP，删除之前断点
 ![S__ZOX_VQ~VFDJJ7PU_H4A0.png](https://i.loli.net/2019/11/03/PU6h7FH4bQj8DJK.png)
 脱壳
-![BS5_X5TBRB`X4P9VYLPZ8_M.png"><br><img src="https://i.loli.net/2019/11/03/DzREHI81MjlytZO.png" alt="_S1_LMRWB@G1VMT0Z9K20~F.png"><br>脱壳完成后发现od无法再打开<br><img src="https://i.loli.net/2019/11/03/iQcP6jJKmtYLRM2.png" alt="QYG_O_AEUII3__G2__@_@EG.png"><br>使用工具<strong>imporREC</strong>进行修复<br><img src="https://i.loli.net/2019/11/03/e3fNqF26ixbjHGn.png" alt="RDPMNG_4XME_YOXID__IKMM.png"><br>如图就是修复后的文件：<img src="https://i.loli.net/2019/11/03/U41EVtqOJYLdCi6.png" alt="@7EEOW1_EP__~5KBBGF___Q.png"><br>继续进行od分析<br><img src="https://i.loli.net/2019/11/03/bp1T4qX3tBlHWCc.png" alt="_3DVR_T4DXIBQ1_`@S_Q_HL.png"><br><strong>F8</strong>大致跟一遍程序，发现程序运行到如下位置时弹出文字，<strong>F7</strong>跟入<br><img src="https://i.loli.net/2019/11/03/PU6h7FH4bQj8DJK.png" alt="S__ZOX_VQ~VFDJJ7PU_H4A0.png"><br>一路<strong>F8</strong>，可得flag<br><img src="https://i.loli.net/2019/11/03/DZjSz54VNI93ebu.png" alt="TXS8GX01ADTS~V~__J~X0_1.png"></p>
-]]></content>
+![BS5_X5TBRB`X4P9VYLPZ8_M.png"><br><img src="https://i.loli.net/2019/11/03/DzREHI81MjlytZO.png" alt="_S1_LMRWB@G1VMT0Z9K20~F.png"><br>脱壳完成后发现od无法再打开<br><img src="https://i.loli.net/2019/11/03/iQcP6jJKmtYLRM2.png" alt="QYG_O_AEUII3__G2__@_@EG.png"><br>使用工具<strong>imporREC</strong>进行修复<br><img src="https://i.loli.net/2019/11/03/e3fNqF26ixbjHGn.png" alt="RDPMNG_4XME_YOXID__IKMM.png"><br>如图就是修复后的文件：<img src="https://i.loli.net/2019/11/03/U41EVtqOJYLdCi6.png" alt="@7EEOW1_EP__~5KBBGF___Q.png"><br>继续进行od分析，<strong>F8</strong>大致跟一遍程序，发现程序运行到如下位置时弹出文字，<strong>F7</strong>跟入<br><img src="https://i.loli.net/2019/11/03/bp1T4qX3tBlHWCc.png" alt="_3DVR_T4DXIBQ1_`@S_Q_HL.png"></p>
+<p><img src="https://i.loli.net/2019/11/03/PU6h7FH4bQj8DJK.png" alt="S__ZOX_VQ~VFDJJ7PU_H4A0.png"><br>一路<strong>F8</strong>，可得flag<br><img src="https://i.loli.net/2019/11/03/DZjSz54VNI93ebu.png" alt="TXS8GX01ADTS~V~__J~X0_1.png"></p>
+<h1 id="0x02-666"><a href="#0x02-666" class="headerlink" title="0x02 666"></a>0x02 666</h1><p>题目下载地址：<a href="https://github.com/wowrice/REVERSE/blob/master/666" target="_blank" rel="noopener">https://github.com/wowrice/REVERSE/blob/master/666</a><br>拖入ida，如下图<br><img src="https://i.loli.net/2019/11/03/zaEQhKs1YbBSZ2o.png" alt="4B9MG_V@_OOUAQ3WL78C0KX.png"><br><img src="https://i.loli.net/2019/11/03/1LIDQrpUhZNf2BJ.png" alt="T_VR_9HCBZF84YQP_6O~L6E.png"><br><img src="https://i.loli.net/2019/11/03/plGXYK21Zj4Cz7A.png" alt="_W2_OE6@D~_Z__~_MU_P9N8.png"></p>
+<p>可知encode加密后与enflag相同即可得到flag,观察enflag<br><img src="https://i.loli.net/2019/11/03/dswy7jcSQz8rDql.png" alt="_T_JP5A8H0U_~E@7LRIW__2.png"></p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">enflag=<span class="string">'izwhroz""w"v.K".Ni'</span></span><br><span class="line">flag=<span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">18</span>,<span class="number">3</span>):</span><br><span class="line">	flag+=chr((ord(enflag[i]) ^ <span class="number">18</span>)<span class="number">-6</span>)</span><br><span class="line">	flag+=chr((ord(enflag[i+<span class="number">1</span>]) ^ <span class="number">18</span>)+<span class="number">6</span>)</span><br><span class="line">	flag+=chr((ord(enflag[i+<span class="number">2</span>]) ^ <span class="number">18</span>) ^ <span class="number">6</span>)</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+<h1 id="OEP常见入口"><a href="#OEP常见入口" class="headerlink" title="OEP常见入口"></a>OEP常见入口</h1><p><strong>vc6.0</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">55    push ebp</span><br><span class="line">8BEC  mov ebp,esp</span><br><span class="line">6A FF push -1</span><br></pre></td></tr></table></figure>
+
+<p><strong>delphi</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">55          PUSH EBP</span><br><span class="line">8BEC        MOV EBP,ESP</span><br><span class="line">83C4        F0 ADD ESP,-10</span><br><span class="line">B8 A86F4B00 MOV EAX,PE.004B6FA8</span><br></pre></td></tr></table></figure>
+
+<p><strong>vc++</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">55      PUSH EBP</span><br><span class="line">8BEC    MOV EBP,ESP</span><br><span class="line">83EC 44 SUB ESP,44</span><br><span class="line">56      PUSH ESI</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>re</category>
       </categories>
